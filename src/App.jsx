@@ -68,12 +68,12 @@ function App() {
   });
   const [audit, setAudit] = useState(['Admin verified all six seeded organizations.', 'Asha Community Kitchen reserved 12 meals from Nizam Kitchen.']);
 
-  if (!auth) return <AuthScreen onAuthenticated={(session) => { setAuth(session); setRole(session.user.role); }} />;
-
   const displayed = useMemo(() => donations.filter((donation) => `${donation.title} ${donation.category} ${donation.area}`.toLowerCase().includes(query.toLowerCase())), [donations, query]);
   const supplierDonations = donations.filter((donation) => donation.supplierId === supplier.id);
   const receiverReservations = reservations.filter((reservation) => reservation.receiverId === receiver.id);
   const supplierReservations = reservations.filter((reservation) => donations.find((donation) => donation.id === reservation.donationId)?.supplierId === supplier.id);
+
+  if (!auth) return <AuthScreen onAuthenticated={(session) => { setAuth(session); setRole(session.user.role); }} />;
 
   function maxReservable(donation) {
     const capacityByUnit = { meals: 60, packs: 20, trays: 10, kg: 15 };
