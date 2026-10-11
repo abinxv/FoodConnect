@@ -1,0 +1,11 @@
+{
+  "name": "foodconnect-server",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "latest",
+    "cors": "latest",
+    "express": "latest",
+    "jsonwebtoken": "latest"
+  }
+}

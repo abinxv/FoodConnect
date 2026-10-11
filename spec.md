@@ -44,12 +44,10 @@ Edible surplus food may be discarded because suppliers lack a reliable way to id
 - Donation creation, browsing, filtering, and lifecycle management.
 - Receiver requirements and demand management.
 - Hard eligibility filters and baseline matching.
-- ML service that ranks eligible matches, with a rule-based fallback.
 - Safe quantity reservations and partial allocation.
-- Automated route optimization for feasible pickup/drop-off tasks, subject to available routing data.
 - Delivery status tracking and confirmation.
 - Basic impact dashboard.
-- Security controls, tests, seed data, and setup documentation.
+
 
 ---
 
@@ -180,23 +178,6 @@ Users can filter by:
 
 Provide a list view even if a map is available. Geospatial search must use a proper geospatial index or a documented alternative.
 
-### FR-06: Hybrid ML matching (SKIP)(do NOT work on this now)
-(for future use not now) -> for 
-
-Current requirement:
-Create some static data and we'll assign by distance.
-
-The system in the future will:
-1. Retrieve current donations and receiver requirements.
-2. Apply hard eligibility constraints first.
-3. Generate features for each eligible supplier–receiver candidate.
-4. Use an ML model to estimate match success probability.
-5. Rank eligible candidates.
-6. Explain the main recommendation factors.
-7. Support multi-receiver quantity allocation.
-8. Persist the model version and prediction metadata needed for evaluation.
-9. Fall back to rule-based ranking if the ML service is unavailable.
-
 
 ### FR-07: Reservations and allocation
 
@@ -208,24 +189,6 @@ The system in the future will:
 - Cancellation releases eligible reserved quantity.
 - All quantity changes must be auditable.
 - Confirmed deliveries must preserve the original allocation and actual received quantity.
-
-### FR-08: Automated route optimization (SKIP)
-(for future use not now)
-The system should plan routes for compatible pickup and delivery tasks using available location and routing data.
-
-Required behavior:
-- Consider pickup and delivery locations, deadlines, vehicle/partner capacity when known, and handling constraints.
-- Group compatible stops where this reduces unnecessary travel and still meets deadlines.
-- Respect pickup-before-delivery precedence.
-- Respect quantity/vehicle capacity and any configured food-handling constraints.
-- Return ordered stops, estimated distances/durations if supported by the routing provider, and infeasible-task explanations.
-- Do not invent travel-time estimates when a routing provider has not returned them.
-- Recompute or request review when a stop is cancelled, a deadline changes, or a route becomes infeasible.
-- Provide a manual assignment/route fallback.
-- A generated route is a recommendation until a delivery partner/authorized user confirms it.
-- Do not claim a vehicle or driver is assigned unless the assignment is confirmed.
-
-For the MVP, use a deterministic heuristic (e.g. nearest feasible next stop with deadline and capacity checks) and a routing API for travel-time/distance estimates if available. Keep the route-planning interface modular so an optimization solver can be added later. Advanced vehicle-routing optimization is a later enhancement if time permits.
 
 ### FR-09: Delivery lifecycle
 
@@ -243,19 +206,6 @@ Each delivery records:
 - Quantity collected and quantity received.
 - Status history.
 - Handover confirmation and issue notes.
-
-### FR-10: Notifications (SKIP)
-
-In-app notifications should cover:
-- Matching donation available.
-- Allocation accepted/rejected.
-- Pickup assignment.
-- Upcoming deadline.
-- Status change.
-- Cancellation or failure.
-- Organization verification update.
-
-Email/SMS can be added later. Notification failures must not corrupt the donation or delivery workflow.
 
 ### FR-11: Impact dashboard
 
