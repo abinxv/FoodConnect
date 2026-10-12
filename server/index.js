@@ -41,14 +41,19 @@ function requireAuth(req, res, next) {
 }
 
 const app = express();
-app.use(cors({ origin: ['http://127.0.0.1:5173', 'http://localhost:5173'] }));
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin)) return callback(null, true);
+    return callback(new Error('Origin is not allowed by CORS.'));
+  },
+}));
 app.use(express.json());
 
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 app.post('/api/auth/register', async (req, res) => {
   const { name, email, password, organizationName, organizationType, address, role } = req.body || {};
   if (!name || !email || !password || !organizationName || !organizationType || !address || !['supplier', 'receiver'].includes(role)) return res.status(400).json({ error: 'Name, email, password, organization details, address, and account type are required.' });
-  if (password.length < 8) return res.status(400).json({ error: 'Password must be at least 8 characters long.' });
+  if (password.length < 6) return res.status(400).json({ error: 'Password must be at least 6 characters long.' });
   if (store.users.some((user) => user.email.toLowerCase() === email.toLowerCase())) return res.status(409).json({ error: 'An account already exists for this email.' });
   const organization = { id: crypto.randomUUID(), name: organizationName, type: organizationType, address, role, verification: 'pending' };
   const user = { id: crypto.randomUUID(), name, email: email.toLowerCase(), role, organizationId: organization.id, passwordHash: await bcrypt.hash(password, 12) };
@@ -66,7 +71,7 @@ app.post('/api/auth/login', async (req, res) => {
 });
 app.post('/api/auth/reset-password', async (req, res) => {
   const { email, newPassword } = req.body || {};
-  if (!email || !newPassword || newPassword.length < 8) return res.status(400).json({ error: 'Email and a new password of at least 8 characters are required.' });
+  if (!email || !newPassword || newPassword.length < 6) return res.status(400).json({ error: 'Email and a new password of at least 6 characters are required.' });
   const user = store.users.find((item) => item.email === String(email).toLowerCase());
   if (!user) return res.status(404).json({ error: 'No account was found for this email.' });
   user.passwordHash = await bcrypt.hash(newPassword, 12);

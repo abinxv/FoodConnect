@@ -1,5 +1,5 @@
 # FoodConnect Feature Specification
-## Explainable Food Matching Engine and Live Social-Impact Dashboard hello hello
+## Explainable Food Matching Engine and Live Social-Impact Dashboard 
 
 **Project:** FoodConnect  
 **Document type:** Feature specification  
