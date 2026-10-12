@@ -35,16 +35,6 @@ The implementation must account for these existing limitations rather than assum
 - Show transparent, auditable social-impact metrics and supplier leaderboards.
 - Capture outcome data that can support future ML training and evaluation.
 
-### 1.3 Non-goals for the initial version
-
-- Autonomous decisions that override food-safety or eligibility rules.
-- Claims that synthetic ML data represents real-world performance.
-- Claims that kilograms donated directly prove the number of unique people or children helped.
-- Real-time GPS tracking or a full fleet-management system.
-- Carbon-emissions savings unless a documented methodology and data source are added.
-- Public exposure of sensitive receiver, supplier, or beneficiary information.
-
----
 
 ## 2. Roles and permissions
 
@@ -91,6 +81,7 @@ The matching engine must never allow a high score to override a failed safety or
 ### 4.1 Donation fields
 
 At minimum, the engine needs:
+(if anyrhing not there already u can ignore)
 
 - Donation ID and supplier organization ID
 - Food category and description
