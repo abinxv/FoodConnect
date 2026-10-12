@@ -1,5 +1,5 @@
 # FoodConnect Feature Specification
-## Explainable Food Matching Engine and Live Social-Impact Dashboard
+## Explainable Food Matching Engine and Live Social-Impact Dashboard hello hello
 
 **Project:** FoodConnect  
 **Document type:** Feature specification  
@@ -13,12 +13,11 @@
 
 FoodConnect connects surplus-food suppliers (such as restaurants and caterers) with receiver organizations (such as community kitchens, shelters, and food banks).
 
-This specification defines two features:
+This specification defines one feature:
 
 1. **Explainable Food Matching Engine** — filters out infeasible matches, scores eligible receivers for a specific donation, explains the ranking, and supports a hybrid rules-plus-ML design.
-2. **Live Social-Impact Dashboard** — presents platform-wide impact, supplier rankings, contribution trends, and carefully labelled meal-equivalent and beneficiary metrics.
 
-These features must use the same authoritative donation, reservation, handover, and outcome records. Dashboard totals must be based on recorded outcomes, not manually entered display values or uncompleted listings.
+These features must use the same authoritative donation, reservation, handover, and outcome records. 
 
 ### 1.1 Existing project context
 
@@ -32,7 +31,6 @@ The implementation must account for these existing limitations rather than assum
 - Respect safety, storage, dietary, capacity, deadline, and organization-eligibility constraints.
 - Keep a deterministic rule-based fallback if the ML model is unavailable.
 - Track completed donations and their actual quantities.
-- Show transparent, auditable social-impact metrics and supplier leaderboards.
 - Capture outcome data that can support future ML training and evaluation.
 
 
