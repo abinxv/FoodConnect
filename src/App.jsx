@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react';
 import {
-  AlertTriangle, ArrowUpRight, Ban, Building2, CheckCircle2, ChevronRight,
+  AlertTriangle, ArrowUpRight, Ban, BarChart3, Building2, CheckCircle2, ChevronRight,
   ClipboardCheck, ClipboardList, Clock3, Leaf, PackageOpen, Pencil,
   Plus, Search, Settings, ShieldCheck, Store, Truck, UsersRound, X,
 } from 'lucide-react';
 import { initialReservations, matchingPolicy, organizations, receiverRequirements, seededDonations } from './data';
+import ImpactDashboard from './ImpactDashboard';
 import { getDonationRecommendations } from './matching';
 
 const roles = [
@@ -15,6 +16,7 @@ const roles = [
 
 const navItems = (role) => [
   { id: 'overview', label: 'Overview', icon: ClipboardList },
+  { id: 'impact', label: 'Impact', icon: BarChart3 },
   { id: 'listings', label: role === 'supplier' ? 'Donations' : role === 'receiver' ? 'Available food' : 'Listings', icon: PackageOpen },
   { id: 'pickups', label: 'Pickups', icon: Truck },
   { id: 'organizations', label: 'Organizations', icon: UsersRound },
@@ -164,6 +166,7 @@ function App() {
         {notice && <div className="notice"><CheckCircle2 size={18} />{notice}<button onClick={() => setNotice('')}><X size={16} /></button></div>}
         <section className="intro"><div><p className="eyebrow">{role === 'admin' ? 'SUNDAY, 11 OCTOBER' : `${role === 'supplier' ? supplier.area : receiver.area}, HYDERABAD`}</p><h1>{title.heading}</h1><p>{title.copy}</p></div>{view === 'overview' && <button className="quiet-action" onClick={() => setView('pickups')}>View pickups <ArrowUpRight size={16} /></button>}</section>
         {view === 'overview' && <Overview role={role} donations={donations} displayed={displayed} query={query} setQuery={setQuery} receiverReservations={receiverReservations} supplierDonations={supplierDonations} reservations={reservations} onSelect={setSelected} />}
+        {view === 'impact' && <ImpactDashboard role={role} organizations={organizations} supplierId={supplier.id} receiverId={receiver.id} />}
         {view === 'listings' && <Listings role={role} donations={role === 'supplier' ? supplierDonations : displayed} query={query} setQuery={setQuery} onSelect={setSelected} onCreate={() => setEditor({})} onEdit={setEditor} onCancel={cancelDonation} />}
         {view === 'pickups' && <Pickups role={role} reservations={role === 'supplier' ? supplierReservations : role === 'receiver' ? receiverReservations : reservations} donations={donations} onCollected={markCollected} onHandover={confirmHandover} onReport={reportIssue} />}
         {view === 'organizations' && <Organizations role={role} orgStatuses={orgStatuses} />}
@@ -178,7 +181,7 @@ function App() {
 }
 
 function getTitle(role, view) {
-  const labels = { supplier: { overview: ['Your surplus, put to use', 'Manage current food availability and receiver pickups.'], listings: ['Your donations', 'Track availability, quantities and pickup deadlines.'], pickups: ['Receiver pickups', 'See who is collecting your donated food and when.'], organizations: ['Partner organizations', 'Verified receivers active in this demo.'], profile: ['Organization profile', 'Manage the details receivers use when arranging pickup.'] }, receiver: { overview: ['Good evening, Asha', 'Here are nearby donations ready for your community kitchen.'], listings: ['Available food', 'Browse nearby surplus food matched by distance and availability.'], pickups: ['Your pickups', 'Collect confirmed food directly from the listed supplier.'], organizations: ['Supplier organizations', 'The verified suppliers sharing food nearby.'], profile: ['Organization profile', 'Set your capacity, receiving details and food preferences.'] }, admin: { overview: ['Platform operations', "A focused view of today's activity across FoodConnect."], listings: ['Donation listings', 'Review all current and reserved listings across the platform.'], pickups: ['All pickups', 'A clear operational view of planned and completed collections.'], organizations: ['Organization directory', 'All accounts are pre-verified for this demo.'], controls: ['Platform controls', 'Review organizations, reports, policy settings and audit activity.'] } };
+  const labels = { supplier: { overview: ['Your surplus, put to use', 'Manage current food availability and receiver pickups.'], impact: ['Your social impact', 'Track completed handovers, estimated meal equivalents, and supplier ranking.'], listings: ['Your donations', 'Track availability, quantities and pickup deadlines.'], pickups: ['Receiver pickups', 'See who is collecting your donated food and when.'], organizations: ['Partner organizations', 'Verified receivers active in this demo.'], profile: ['Organization profile', 'Manage the details receivers use when arranging pickup.'] }, receiver: { overview: ['Good evening, Asha', 'Here are nearby donations ready for your community kitchen.'], impact: ['Received food impact', 'Review completed received quantities and receiver-reported service stats.'], listings: ['Available food', 'Browse nearby surplus food matched by distance and availability.'], pickups: ['Your pickups', 'Collect confirmed food directly from the listed supplier.'], organizations: ['Supplier organizations', 'The verified suppliers sharing food nearby.'], profile: ['Organization profile', 'Set your capacity, receiving details and food preferences.'] }, admin: { overview: ['Platform operations', "A focused view of today's activity across FoodConnect."], impact: ['Smart social-impact dashboard', 'Platform-wide demo metrics, leaderboards, trends, and data-quality checks.'], listings: ['Donation listings', 'Review all current and reserved listings across the platform.'], pickups: ['All pickups', 'A clear operational view of planned and completed collections.'], organizations: ['Organization directory', 'All accounts are pre-verified for this demo.'], controls: ['Platform controls', 'Review organizations, reports, policy settings and audit activity.'] } };
   const [heading, copy] = labels[role][view];
   return { heading, copy };
 }

@@ -1,4 +1,4 @@
-import { impactConfig } from './impactData';
+import { impactConfig } from './impactData.js';
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
@@ -106,7 +106,8 @@ export function getSupplierLeaderboard(periodHandovers, previousHandovers, organ
 }
 
 export function getTrends(completedHandovers, period) {
-  const buckets = buildBuckets(period);
+  const trendPeriod = period.start ? period : { ...period, start: getEarliestCompletedDate(completedHandovers) };
+  const buckets = buildBuckets(trendPeriod);
   return buckets.map((bucket) => {
     const bucketHandovers = completedHandovers.filter((item) => isWithin(parseDate(item.receivedAt || item.collectedAt || item.reservedAt), bucket));
     const kg = sum(bucketHandovers.map(reconciledKg));
@@ -210,6 +211,11 @@ function buildBuckets(period) {
     start = addDays(end, 1);
   }
   return buckets;
+}
+
+function getEarliestCompletedDate(completedHandovers) {
+  const dates = completedHandovers.map((item) => parseDate(item.receivedAt || item.collectedAt || item.reservedAt)).filter(Boolean).sort((left, right) => left - right);
+  return dates[0] || null;
 }
 
 function formatBucketLabel(start, end, bucketSize) {
