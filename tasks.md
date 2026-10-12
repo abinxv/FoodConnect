@@ -1,6 +1,6 @@
 # FoodConnect Remaining Tasks
-
-
+- create/simulate more data so leaderboard can be better
+- make ppt
 
 ## Current Demo Status
 
