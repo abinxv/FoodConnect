@@ -3,3 +3,4 @@ dist/
 server/node_modules/
 server/data/store.json
 .env.example
+.env
