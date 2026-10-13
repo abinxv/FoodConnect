@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s2 .zone { display: flex; flex-direction: column; }
+      #s2 .lede { margin-top: 14px; font-size: 50px; max-width: 1640px; }
+      /* one evening, 6 pm to 1 am: x = (hour - 18) / 7 */
+      #s2 .night { display: grid; grid-template-columns: 190px 1fr; row-gap: 18px; margin-top: 64px; align-items: center; }
+      #s2 .who { font: 700 22px/1.15 var(--font-sans); display: flex; align-items: center; gap: 10px; }
+      #s2 .who .ico { width: 34px; height: 34px; flex: none; }
+      #s2 .track { position: relative; height: 72px; }
+      #s2 .seg { position: absolute; top: 0; bottom: 0; border-radius: 10px; display: flex; align-items: center; gap: 10px; padding: 0 16px; font: 600 20px/1 var(--font-sans); white-space: nowrap; overflow: hidden; }
+      #s2 .seg .ico { width: 30px; height: 30px; flex: none; }
+      #s2 .service { left: 0; width: 64.29%; border: 2px solid var(--accent-2); color: var(--accent-2); border-radius: 10px 0 0 10px; border-right: 0; }
+      #s2 .surplus { left: 64.29%; width: 21.42%; background: var(--accent-2); color: var(--paper); border-radius: 0 10px 10px 0; }
+      #s2 .open { left: 0; width: 28.57%; background: var(--wire); color: var(--paper); border-radius: 10px 0 0 10px; }
+      #s2 .closed { left: 28.57%; right: 0; border: 2px dashed var(--ink-3); color: var(--ink-3); border-radius: 0 10px 10px 0; border-left: 0; }
+      #s2 .safe { left: 64.29%; right: 0; background: linear-gradient(90deg, var(--clock), color-mix(in srgb, var(--clock) 8%, var(--paper))); color: var(--ink); }
+      #s2 .axis { position: relative; height: 34px; font: 600 17px/1 var(--font-num); color: var(--ink-3); }
+      #s2 .axis span { position: absolute; top: 12px; transform: translateX(-50%); white-space: nowrap; }
+      #s2 .axis span::before { content: ""; position: absolute; left: 50%; top: -12px; height: 8px; border-left: 2px solid var(--hair); }
+      #s2 .axis .hot { color: var(--ink); }
+      #s2 .tracks { grid-column: 2; grid-row: 1 / span 4; position: relative; align-self: stretch; pointer-events: none; }
+      #s2 .hotzone { position: absolute; left: 64.29%; width: 21.42%; top: -10px; bottom: 30px; background: color-mix(in srgb, var(--bad) 9%, transparent); border-left: 2px dashed var(--bad); border-right: 2px dashed var(--bad); }
+      #s2 .cursor { position: absolute; top: -14px; bottom: 30px; width: 3px; margin-left: -1.5px; background: var(--ink); border-radius: 2px; animation: sweep 12s linear infinite; --still: 0.72; }
+      #s2 .cursor::before { content: ""; position: absolute; left: -6px; top: -8px; width: 15px; height: 15px; border-radius: 50%; background: var(--ink); }
+      @keyframes sweep { from { left: 0%; } to { left: 100%; } }
+      #s2 .why { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; margin-top: 48px; height: 290px; }
+      #s2 .reason { background: var(--panel); border: 1.5px solid var(--hair); border-radius: 14px; padding: 22px 26px; display: flex; align-items: center; gap: 26px; }
+      #s2 .reason .pic { width: 170px; height: 136px; flex: none; color: var(--ink-2); }
+      #s2 .reason .pic.bad { color: var(--bad); }
+      #s2 .reason h3 { margin: 0 0 8px; font: 700 30px/1.15 var(--font-sans); }
+      #s2 .reason p { margin: 0; font-size: 23px; line-height: 1.3; color: var(--ink-2); }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s2">
+      <div class="zone">
+        <div class="label">Why food rescue fails today</div>
+        <div class="lede">Surplus appears after 10:30 pm, when most receivers have closed and cooked food has only a few safe hours left.</div>
+
+        <div class="night">
+          <div class="tracks"><div class="hotzone"></div><div class="cursor"></div></div>
+          <div class="who" style="color: var(--accent-2); grid-row: 1"><span class="ico" data-art="hall"></span>Kitchens</div>
+          <div class="track" style="grid-row: 1; grid-column: 2">
+            <div class="seg service">Dinner service, weddings</div>
+            <div class="seg surplus pulse" style="color: var(--accent-2)"><span class="ico" data-art="tray" style="color: var(--paper)"></span><span style="color: var(--paper)">Surplus</span></div>
+          </div>
+          <div class="who" style="color: var(--wire); grid-row: 2"><span class="ico" data-art="home"></span>Receivers</div>
+          <div class="track" style="grid-row: 2; grid-column: 2">
+            <div class="seg open">Open</div>
+            <div class="seg closed"><span class="ico" data-art="moon"></span>Closed for the night</div>
+          </div>
+          <div class="who" style="color: var(--clock); grid-row: 3"><span class="ico" data-art="stopwatch"></span>Safe to eat</div>
+          <div class="track" style="grid-row: 3; grid-column: 2">
+            <div class="seg safe">A few hours</div>
+          </div>
+          <div class="axis" style="grid-row: 4; grid-column: 2" data-lint="off">
+            <span style="left: 0%">6 pm</span><span style="left: 14.29%">7 pm</span><span class="hot" style="left: 28.57%">8 pm</span><span style="left: 42.86%">9 pm</span><span style="left: 57.14%">10 pm</span><span class="hot" style="left: 64.29%; top: 12px">10:30</span><span style="left: 71.43%">11 pm</span><span class="hot" style="left: 85.71%">midnight</span><span style="left: 100%">1 am</span>
+          </div>
+        </div>
+
+        <div class="why">
+          <div class="reason"><div class="pic" data-art="form"></div><div><h3>A long form</h3><p>A tired manager skips it</p></div></div>
+          <div class="reason"><div class="pic bad" data-art="alert"></div><div><h3>Donor fear</h3><p>The bin feels safer</p></div></div>
+          <div class="reason"><div class="pic" data-art="unknown"></div><div><h3>Unplanned supply</h3><p>Receivers cook anyway</p></div></div>
+        </div>
+        <div class="source" data-count="off" style="margin-top: auto">Timings are the team's working assumption for Hyderabad function halls and receivers.</div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide();
+    </script>
+  </body>
+</html>

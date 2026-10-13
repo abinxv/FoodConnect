@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <meta name="deck-id" content="deck-e943c3ca" />
+    <title>FoodConnect</title>
+    <style>
+      body { margin: 0; padding: 24px 32px; background: #888; font: 600 14px system-ui, sans-serif; }
+      figure { margin: 0 0 28px; }
+      figcaption { margin-bottom: 6px; }
+      figcaption a { color: #111; }
+      .frame { overflow: hidden; box-shadow: 0 2px 12px rgb(0 0 0 / 0.3); }
+      iframe { border: 0; transform-origin: 0 0; display: block; }
+    </style>
+  </head>
+  <body>
+    <!-- Overview: every slide in deck.json "slides" plus the style board, scaled to the window. -->
+    <div id="app"></div>
+    <script type="module">
+      const deck = await (await fetch("deck.json")).json();
+      const { width: W, height: H } = deck.canvas;
+      const ids = [...deck.slides, "board"].filter((v, i, a) => a.indexOf(v) === i);
+      const app = document.getElementById("app");
+      const frames = [];
+      for (const id of ids) {
+        const fig = document.createElement("figure");
+        fig.innerHTML = `<figcaption><a href="slides/${id}.html">${id}</a></figcaption><div class="frame"><iframe src="slides/${id}.html" width="${W}" height="${H}"></iframe></div>`;
+        app.append(fig);
+        frames.push(fig);
+      }
+      const fit = () => {
+        const s = Math.min(1, (innerWidth - 64) / W);
+        for (const f of frames) {
+          const box = f.querySelector(".frame");
+          box.style.width = `${W * s}px`;
+          box.style.height = `${H * s}px`;
+          f.querySelector("iframe").style.transform = `scale(${s})`;
+        }
+      };
+      fit();
+      addEventListener("resize", fit);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s3 .zone { display: flex; flex-direction: column; }
+      #s3 .lede { margin-top: 14px; font-size: 50px; max-width: 1640px; }
+      #s3 .main { display: grid; grid-template-columns: 1fr 430px; gap: 52px; margin-top: 44px; flex: 1; min-height: 0; }
+      #s3 .lanes { display: grid; grid-template-columns: 170px repeat(4, 1fr); column-gap: 22px; row-gap: 22px; align-content: start; }
+      #s3 .when { font: 600 18px/1.2 var(--font-sans); color: var(--ink-3); border-bottom: 2px solid var(--hair); padding-bottom: 8px; }
+      #s3 .lane-name { font: 700 23px/1.15 var(--font-sans); align-self: center; }
+      #s3 .cell { border-radius: 14px; padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 10px; min-height: 218px; }
+      #s3 .cell .pic { height: 122px; }
+      #s3 .cell h3 { margin: 0; font: 700 23px/1.15 var(--font-sans); }
+      #s3 .old { grid-column: 2 / span 3; border: 2px dashed var(--hair); color: var(--ink-3); align-items: center; justify-content: center; font: 600 22px/1 var(--font-sans); }
+      #s3 .scramble { background: var(--panel); border: 2px solid var(--hair); color: var(--ink-3); }
+      #s3 .scramble h3 { color: var(--bad); }
+      #s3 .step { --c: var(--wire); --still: 0.55; border: 2px solid var(--c); color: var(--c); background: var(--paper); animation: s3-on 8s linear infinite; animation-delay: calc(var(--i) * 2s); }
+      #s3 .step.sup { --c: var(--accent-2); }
+      #s3 .step h3 { color: var(--ink); }
+      @keyframes s3-on {
+        /* lit for one card width (23.5% of the rail), off within the gap before the next card (2%) */
+        0%, 23.5% { background: color-mix(in srgb, var(--c) 13%, var(--paper)); box-shadow: 0 10px 26px color-mix(in srgb, var(--c) 26%, transparent); transform: translateY(-6px); }
+        24%, 100% { background: var(--paper); box-shadow: none; transform: none; }
+      }
+      #s3 .rail { grid-column: 2 / span 4; height: 26px; }
+      #s3 .known { grid-column: 1 / span 5; display: flex; align-items: center; gap: 16px; margin-top: 22px; font-size: 22px; color: var(--ink-2); }
+      #s3 .known b { margin-right: 6px; }
+      #s3 .fact { display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1.5px solid var(--hair); border-radius: 999px; padding: 9px 20px 9px 14px; }
+      #s3 .fact .ico { width: 32px; height: 32px; color: var(--accent-2); }
+      #s3 .card { align-self: start; border: 2px solid var(--accent-2); border-radius: 18px; background: var(--paper); overflow: hidden; box-shadow: var(--shadow); }
+      #s3 .card .photo { height: 290px; border-radius: 0; }
+      #s3 .card .photo img { object-position: 50% 50%; }
+      #s3 .card .body { padding: 22px 26px 24px; display: flex; flex-direction: column; gap: 12px; }
+      #s3 .card .kicker { font: 700 17px/1 var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-2); }
+      #s3 .card .msg { font: 600 30px/1.22 var(--font-sans); letter-spacing: -0.01em; }
+      #s3 .cardhead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font: 600 19px/1.2 var(--font-sans); }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s3">
+      <div class="zone">
+        <div class="label">The idea</div>
+        <div class="lede">A function hall knows its date, guest count and menu weeks ahead, so the host pledges the surplus at booking.</div>
+
+        <div class="main">
+          <div class="lanes">
+            <div></div>
+            <div class="when">At booking</div><div class="when">Days before</div><div class="when">Event night</div><div class="when">After dinner</div>
+
+            <div class="lane-name" style="color: var(--ink-3)">Today</div>
+            <div class="cell old">Nothing arranged</div>
+            <div class="cell scramble"><div class="pic" data-art="binned"></div><h3>Midnight scramble</h3></div>
+
+            <div class="lane-name" style="color: var(--wire)">With FoodConnect</div>
+            <div class="cell step sup" style="--i: 0" id="c1"><div class="pic" data-art="pledge"></div><h3>Host pledges</h3></div>
+            <div class="cell step" style="--i: 1" id="c2"><div class="pic" data-art="prematch"></div><h3>Receiver matched</h3></div>
+            <div class="cell step" style="--i: 2" id="c3"><div class="pic" data-art="waiting"></div><h3>Receiver waiting</h3></div>
+            <div class="cell step" style="--i: 3" id="c4"><div class="pic" data-art="handover"></div><h3>Planned pickup</h3></div>
+            <div></div>
+            <div class="rail" id="rail"></div>
+
+            <div class="known">
+              <b>Known at booking</b>
+              <span class="fact"><span class="ico" data-art="calendar"></span>Date</span>
+              <span class="fact"><span class="ico" data-art="guests"></span>Guest count</span>
+              <span class="fact"><span class="ico" data-art="menu"></span>Menu</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="cardhead"><span>What the host receives</span><span class="chip chip-tag">sample card</span></div>
+            <div class="card">
+              <div class="photo"><img src="../img/web/hyderabadi-dum-biryani.jpg" alt="" /></div>
+              <div class="body">
+                <div class="kicker">Annadanam</div>
+                <div class="msg">This wedding fed 140 people in the couple's name.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="source" data-count="off" style="margin-top: 12px">Photo: Hyderabadi dum ki biryani, Miansari66, CC0, Wikimedia Commons.</div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wirePts, flow, box, svg, railSync } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const first = box($("c1"), slide), last = box($("c4"), slide), rail = box($("rail"), slide);
+        const y = rail.y + rail.h / 2;
+        const p = wirePts(w, { x: first.x, y }, { x: last.x + last.w, y }, { shape: "straight", color: "var(--hair)", width: 3, dot: false });
+        for (let i = 1; i <= 4; i++) {
+          const b = box($("c" + i), slide);
+          w.append(svg("circle", { cx: b.x + b.w / 2, cy: y, r: 6, fill: "var(--paper)", stroke: "var(--ink-3)", "stroke-width": 2 }));
+        }
+        flow(slide, p, { dur: 8, size: 22, still: 0.55 });
+        railSync([1, 2, 3, 4].map((i) => $("c" + i)), slide, 8);
+      });
+    </script>
+  </body>
+</html>

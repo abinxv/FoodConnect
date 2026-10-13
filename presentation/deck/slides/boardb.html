@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" data-palette="b">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      /* Style board: palette, type, every shared object and every looping motion. */
+      #board .cols { display: grid; grid-template-columns: 560px 1fr 430px; gap: 56px; height: 100%; }
+      #board .col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+      #board .sw { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+      #board .sw > div { display: flex; align-items: center; gap: 12px; font-size: 17px; line-height: 1.2; color: var(--ink-2); }
+      #board .sw i { width: 46px; height: 46px; border-radius: 10px; border: 1.5px solid var(--hair); flex: none; }
+      #board .row { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+      #board .chain .node, #board .cascade .node { white-space: nowrap; }
+      #board .chain { display: flex; align-items: center; justify-content: space-between; margin: 6px 0 4px; }
+      #board .cascade { display: flex; align-items: center; justify-content: space-between; margin-top: 30px; }
+      #board .score { display: grid; grid-template-columns: 250px 1fr 64px; gap: 10px 16px; align-items: center; font-size: 19px; }
+      #board .score b { text-align: right; }
+      #board .phone { width: 250px; height: 400px; display: flex; flex-direction: column; gap: 10px; padding: 18px 14px; }
+      #board .frames { display: flex; gap: 26px; align-items: flex-start; }
+      #board .side { display: flex; flex-direction: column; gap: 14px; }
+      #board .ph { display: grid; place-items: center; color: var(--ink-3); font-size: 15px; }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="board">
+      <div class="zone">
+        <div class="cols">
+          <div class="col">
+            <div class="label">Colour code, one meaning each</div>
+            <div class="sw">
+              <div><i style="background: var(--accent-2)"></i>Supplier, surplus</div>
+              <div><i style="background: var(--wire)"></i>Food moving, receiver</div>
+              <div><i style="background: var(--clock)"></i>Time, the safety clock</div>
+              <div><i style="background: var(--ai)"></i>A step done by AI</div>
+              <div><i style="background: var(--bad)"></i>Expired, excluded</div>
+              <div><i style="background: var(--ink-3)"></i>Context, the old way</div>
+              <div><i style="background: var(--paper)"></i>Slide background</div>
+              <div><i style="background: var(--panel)"></i>Cards and lanes</div>
+            </div>
+            <div class="rule"></div>
+            <div class="label">Type: Inter</div>
+            <div class="lede">The host pledges the surplus at booking, weeks before the event.</div>
+            <div>Body text at 22 px. <b>Bold the keywords</b> so a skim from the back row still works.</div>
+            <div class="row">
+              <div class="readout"><div class="num">70<span class="unit">meals</span></div><div class="desc">wedding buffet surplus</div></div>
+              <div class="readout"><div class="num">28<span class="unit">%</span></div><div class="desc">of food waste, food services</div></div>
+            </div>
+            <div class="source" data-count="off">Source caption, 15 px: where this picture's numbers came from. [1]</div>
+          </div>
+
+          <div class="col">
+            <div class="label">Nodes, wires and flow tokens (looping)</div>
+            <div class="chain">
+              <div class="node supplier" id="n1"><b>Function hall</b><br />pledges surplus</div>
+              <div class="node ai" id="n2"><b>AI intake</b><br />photo to listing</div>
+              <div class="node" id="n4"><b>Night shelter</b><br />collects</div>
+            </div>
+            <div class="cascade">
+              <div class="node muted" id="c1">No confirmation</div>
+              <div class="node" id="c2">Next on waitlist</div>
+              <div class="node clock" id="c3"><b>Safety clock</b> expires</div>
+            </div>
+            <div class="rule" style="margin-top: 14px"></div>
+            <div class="label">Score bars (fill, hold, reset)</div>
+            <div class="score">
+              <span>Unmet demand</span><div class="bar"><span style="--v: 57%"></span></div><b>0.57</b>
+              <span>Distance</span><div class="bar"><span style="--v: 67%; --delay: 0.25s"></span></div><b>0.67</b>
+              <span>Reliability</span><div class="bar"><span style="--v: 88%; --delay: 0.5s"></span></div><b>0.88</b>
+            </div>
+            <div class="rule"></div>
+            <div class="label">Clock, badges, tags, pulse</div>
+            <div class="row">
+              <div class="clockring"><div>3 h<br />10 min</div></div>
+              <span class="badge">1</span><span class="badge">2</span><span class="badge">3</span>
+              <span class="chip chip-tag">example event</span>
+              <div class="node pulse" style="color: var(--wire)"><b style="color: var(--ink)">Handover confirmed</b></div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="label">Frames</div>
+            <div class="frames">
+              <div class="shot phone" id="phone">
+                <div class="bubble">Any surplus tonight?</div>
+                <div class="bubble me">Voice note, 0:14</div>
+                <div class="bubble">70 meals, paneer curry and pulao. Correct?</div>
+                <div class="bubble me pulse" style="color: var(--wire)"><span style="color: var(--ink)">Yes</span></div>
+              </div>
+            </div>
+            <div class="side">
+              <figure class="shot-fig">
+                <div class="shot" style="width: 430px; height: 150px"><div class="window-bar"><i></i><i></i><i></i></div></div>
+                <figcaption class="source" data-count="off">App screenshot in a window frame</figcaption>
+              </figure>
+              <figure class="shot-fig">
+                <div class="photo ph" style="width: 430px; height: 130px">photo</div>
+                <figcaption class="source" data-count="off">Photo: name, licence, source</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wire, flow } from "../lib/deck.js";
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const a = wire(w, $("n1"), $("n2"), { arrow: true, color: "var(--accent-2)", width: 2 });
+        const b = wire(w, $("n2"), $("n4"), { arrow: true, width: 2 });
+        flow(slide, a, { dur: 3, color: "var(--accent-2)", still: 0.5 });
+        flow(slide, b, { dur: 3, still: 0.55 });
+        for (const [x, y] of [["c1", "c2"], ["c2", "c3"]]) {
+          const p = wire(w, $(x), $(y), { arrow: true, color: "var(--ink-3)", width: 2 });
+          p.classList.add("march");
+        }
+      });
+    </script>
+  </body>
+</html>

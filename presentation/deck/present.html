@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <title>FoodConnect</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+      #stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; }
+      iframe { position: absolute; inset: 0; width: 1920px; height: 1080px; border: 0; background: #fbf8f2; }
+      #n { position: fixed; right: 14px; bottom: 10px; font: 600 13px Arial, sans-serif; color: #888; }
+    </style>
+  </head>
+  <body>
+    <!-- Presenter: right / space / click = next, left = back, F = full screen, Home / End. Slides loop their animations. -->
+    <div id="stage"><iframe id="f" title="slide"></iframe></div>
+    <div id="n"></div>
+    <script type="module">
+      const deck = await (await fetch("deck.json")).json();
+      const ids = deck.slides;
+      let i = Math.max(0, ids.indexOf(location.hash.slice(1)));
+      const f = document.getElementById("f"), stage = document.getElementById("stage"), n = document.getElementById("n");
+      const exists = async (id) => (await fetch(`slides/${id}.html`, { method: "HEAD" })).ok;
+      const built = [];
+      for (const id of ids) if (await exists(id)) built.push(id);
+      const show = () => { const id = built[i]; f.src = `slides/${id}.html`; location.hash = id; n.textContent = `${i + 1} / ${built.length}`; };
+      const go = (d) => { const j = Math.min(built.length - 1, Math.max(0, i + d)); if (j !== i) { i = j; show(); } };
+      const fit = () => { const s = Math.min(innerWidth / 1920, innerHeight / 1080); stage.style.transform = `scale(${s}) translate(-50%, -50%)`; };
+      addEventListener("resize", fit);
+      const key = (e) => {
+        if (["ArrowRight", " ", "PageDown", "Enter"].includes(e.key)) go(1);
+        else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) go(-1);
+        else if (e.key === "Home") go(-99);
+        else if (e.key === "End") go(99);
+        else if (e.key === "f" || e.key === "F") document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+      };
+      addEventListener("keydown", key);
+      addEventListener("message", (e) => e.data?.deckKey && key({ key: e.data.deckKey }));
+      addEventListener("click", () => go(1));
+      i = Math.max(0, built.indexOf(location.hash.slice(1)));
+      fit(); show();
+    </script>
+  </body>
+</html>

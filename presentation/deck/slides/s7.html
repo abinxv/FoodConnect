@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s7 .zone { display: flex; flex-direction: column; }
+      #s7 .lede { margin-top: 14px; font-size: 46px; max-width: 1700px; }
+      #s7 .example { display: flex; align-items: center; gap: 14px; margin-top: 22px; color: var(--ink-2); font-size: 23px; }
+      #s7 .cascade { display: grid; grid-template-columns: repeat(5, 1fr); gap: 54px; margin-top: 34px; }
+      #s7 .stage { --c: var(--wire); --still: 0.5; border: 2px solid var(--c); border-radius: 14px; background: var(--paper); padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 8px; min-height: 250px; position: relative; z-index: 7;
+        animation: s7-on 10s linear infinite; animation-delay: calc(var(--i) * 2s); }
+      #s7 .stage.sup { --c: var(--accent-2); }
+      #s7 .stage.low { --c: var(--ink-3); background: var(--panel); }
+      @keyframes s7-on {
+        0%, 17% { box-shadow: 0 10px 26px color-mix(in srgb, var(--c) 28%, transparent); transform: translateY(-6px); }
+        21%, 100% { box-shadow: none; transform: none; }
+      }
+      #s7 .stage .pic { height: 124px; color: var(--c); }
+      #s7 .stage h3 { margin: 0; font: 700 23px/1.15 var(--font-sans); }
+      #s7 .stage p { margin: 0; font-size: 20px; color: var(--ink-2); }
+      #s7 .stage p b { font-size: 26px; font-weight: 700; }
+      #s7 .legend { display: flex; align-items: center; gap: 14px; margin-top: 20px; font-size: 20px; color: var(--ink-2); }
+      #s7 .legend svg { flex: none; }
+      #s7 .lower { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 30px; flex: 1; min-height: 0; }
+      #s7 .box { background: var(--panel); border: 1.5px solid var(--hair); border-radius: 14px; padding: 22px 28px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+      #s7 .box h3 { margin: 0; font: 700 24px/1.2 var(--font-sans); }
+      #s7 .weights { display: flex; gap: 4px; height: 30px; }
+      #s7 .weights i { border-radius: 5px; background: var(--wire); transform-origin: 0 50%; animation: bar-fill 8s cubic-bezier(0.3, 0, 0.2, 1) infinite; animation-delay: calc(var(--i) * 0.2s); }
+      #s7 .wl { display: flex; gap: 4px; font-size: 17px; line-height: 1.25; color: var(--ink-2); }
+      #s7 .wl b { display: block; font-size: 22px; }
+      #s7 .awake { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+      #s7 .awake > span { display: flex; align-items: center; gap: 12px; background: var(--paper); border: 1.5px solid var(--hair); border-radius: 10px; padding: 10px 14px; font-size: 20px; }
+      #s7 .awake .ico { width: 34px; height: 34px; flex: none; color: var(--wire); }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s7">
+      <div class="zone">
+        <div class="label">Allocation and the zero-bin cascade</div>
+        <div class="lede">If a receiver does not confirm in time, the food moves down a waitlist, then to animal feed, then to biogas or compost.</div>
+        <div class="example"><span class="chip chip-tag">example event</span><span><b>Wedding buffet surplus</b>: one receiver qualifies and can take 40 of the 70 meals</span></div>
+
+        <div class="cascade">
+          <div class="stage sup" style="--i: 0" id="k1"><div class="pic" data-art="surplus"></div><h3>Surplus listed</h3><p><b>70</b> meals</p></div>
+          <div class="stage" style="--i: 1" id="k2"><div class="pic" data-art="handover"></div><h3>First receiver</h3><p><b>40</b> meals, 4 km away</p></div>
+          <div class="stage" style="--i: 2" id="k3"><div class="pic" data-art="queue"></div><h3>Waitlist</h3><p><b>30</b> meals offered on</p></div>
+          <div class="stage low" style="--i: 3" id="k4"><div class="pic" data-art="feed"></div><h3>Animal feed</h3><p>if no receiver</p></div>
+          <div class="stage low" style="--i: 4" id="k5"><div class="pic" data-art="compost"></div><h3>Biogas, compost</h3><p>last resort</p></div>
+        </div>
+        <div class="legend">
+          <svg width="70" height="14" data-lint="off"><path class="march" d="M2 7 H60" stroke="var(--ink-3)" stroke-width="3" stroke-linecap="round" fill="none" /><path d="M56 2 L66 7 L56 12 Z" fill="var(--ink-3)" /></svg>
+          <span>Moves on when the <b>confirmation deadline</b> lapses</span>
+        </div>
+
+        <div class="lower">
+          <div class="box">
+            <h3>A rule-based score ranks the receivers that qualify</h3>
+            <div class="weights"><i style="flex: 30; --i: 0"></i><i style="flex: 25; --i: 1; opacity: 0.82"></i><i style="flex: 20; --i: 2; opacity: 0.66"></i><i style="flex: 15; --i: 3; opacity: 0.5"></i><i style="flex: 10; --i: 4; opacity: 0.36"></i></div>
+            <div class="wl"><span style="flex: 30"><b>0.30</b>Unmet need</span><span style="flex: 25"><b>0.25</b>Urgency</span><span style="flex: 20"><b>0.20</b>Distance</span><span style="flex: 15"><b>0.15</b>Fit</span><span style="flex: 10"><b>0.10</b>Reliability</span></div>
+          </div>
+          <div class="box">
+            <h3>Receivers that are awake at 11 pm</h3>
+            <div class="awake">
+              <span><span class="ico" data-art="bed"></span>Night shelters</span>
+              <span><span class="ico" data-art="hospital"></span>Hospital attendants</span>
+              <span><span class="ico" data-art="train"></span>Railway stations</span>
+              <span><span class="ico" data-art="helmet"></span>Labour colonies</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wire, flow } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const a = wire(w, $("k1"), $("k2"), { arrow: true, color: "var(--wire)", width: 3 });
+        flow(slide, a, { dur: 3, still: 0.5 });
+        [["k2", "k3"], ["k3", "k4"], ["k4", "k5"]].forEach(([x, y], i) => {
+          const p = wire(w, $(x), $(y), { arrow: true, color: "var(--ink-3)", width: 3 });
+          p.classList.add("march");
+          flow(slide, p, { dur: 3, color: "var(--ink-3)", size: 14, still: 0.3 + i * 0.2 });
+        });
+      });
+    </script>
+  </body>
+</html>

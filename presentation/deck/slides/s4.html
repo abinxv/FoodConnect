@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s4 .zone { display: flex; flex-direction: column; }
+      #s4 .lede { margin-top: 14px; max-width: 1560px; font-size: 50px; }
+      #s4 .example { display: flex; align-items: center; gap: 14px; margin-top: 24px; color: var(--ink-2); font-size: 24px; }
+      #s4 .phases { display: grid; grid-template-columns: 2fr 3fr 1fr; gap: 34px; margin-top: 52px; }
+      #s4 .phase { font: 600 17px/1.2 var(--font-sans); color: var(--ink-3); border-bottom: 2px solid var(--hair); padding-bottom: 8px; }
+      #s4 .steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 34px; margin-top: 14px; }
+      #s4 .step { --c: var(--wire); --still: 0.6; border: 2px solid var(--c); border-radius: 14px; background: var(--paper); padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 8px; min-height: 206px;
+        animation: step-on 9s linear infinite; animation-delay: calc(var(--i) * 1.5s); }
+      #s4 .step.sup { --c: var(--accent-2); }
+      #s4 .step.ai { --c: var(--ai); }
+      #s4 .step.clk { --c: var(--clock); }
+      @keyframes step-on {
+        /* lit for one card width (15% of the rail), off within the gap before the next card (2%) */
+        0%, 15% { background: color-mix(in srgb, var(--c) 13%, var(--paper)); box-shadow: 0 10px 26px color-mix(in srgb, var(--c) 26%, transparent); transform: translateY(-6px); }
+        15.5%, 100% { background: var(--paper); box-shadow: none; transform: none; }
+      }
+      #s4 .step h3 { margin: 0; display: flex; align-items: center; gap: 10px; font: 700 23px/1.1 var(--font-sans); }
+      #s4 .step h3 .badge { background: var(--c); }
+      #s4 .pic { height: 104px; margin: 6px 0 4px; color: var(--c); }
+      #s4 .who { display: flex; align-items: center; gap: 8px; font: 600 16px/1 var(--font-sans); color: var(--c); }
+      #s4 .who::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+      #s4 .rail { height: 60px; }
+      #s4 .details { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; margin-top: 22px; height: 338px; }
+      #s4 .detail { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+      #s4 .detail .head { display: flex; align-items: center; gap: 10px; font: 600 19px/1.2 var(--font-sans); }
+      #s4 .card { flex: 1; border: 1.5px solid var(--hair); border-radius: 12px; background: var(--panel); padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; gap: 13px; font-size: 20px; }
+      #s4 .field { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--hair); padding-bottom: 10px; color: var(--ink-2); }
+      #s4 .field b { font-weight: 600; }
+      #s4 .toggle { width: 54px; height: 30px; border-radius: 15px; background: var(--accent-2); position: relative; flex: none; color: var(--accent-2); }
+      #s4 .toggle::after { content: ""; position: absolute; right: 4px; top: 4px; width: 22px; height: 22px; border-radius: 50%; background: var(--paper); }
+      #s4 .shot { flex: 1; min-height: 0; }
+      #s4 .shot img { width: 100%; display: block; }
+      #s4 .card.form { gap: 14px; }
+      #s4 .known { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; color: var(--ink-2); }
+      #s4 .known > div { display: flex; align-items: center; gap: 8px; background: var(--paper); border: 1.5px solid var(--hair); border-radius: 10px; padding: 10px 12px; }
+      #s4 .ico { width: 34px; height: 34px; flex: none; color: var(--ink-2); }
+      #s4 .ok { width: 22px; height: 22px; flex: none; margin-left: auto; color: var(--wire); }
+      #s4 .pledge { display: flex; align-items: center; gap: 14px; background: var(--paper); border: 2px solid var(--accent-2); border-radius: 10px; padding: 12px 16px; }
+      #s4 .pledge .ico { width: 44px; color: var(--accent-2); }
+      #s4 .pledge .toggle { margin-left: auto; }
+      #s4 .note { color: var(--ink-3); font-size: 18px; }
+      #s4 .proof { display: flex; align-items: center; gap: 14px; color: var(--ink-2); }
+      #s4 .ph { width: 132px; height: 92px; flex: none; }
+      #s4 .stamp { display: flex; align-items: center; gap: 8px; font: 600 20px/1 var(--font-num); color: var(--ink); background: var(--paper); border: 1.5px solid var(--hair); border-radius: 999px; padding: 6px 16px 6px 10px; }
+      #s4 .stamp .ico { width: 30px; height: 30px; }
+      #s4 .signs { display: flex; gap: 26px; color: var(--ink-2); }
+      #s4 .signs > div { display: flex; align-items: center; gap: 8px; }
+      #s4 .signs .ok { margin: 0; width: 24px; height: 24px; }
+      #s4 .tick { display: flex; align-items: center; gap: 12px; }
+      #s4 .tick i { width: 26px; height: 26px; border-radius: 7px; background: var(--wire); flex: none; display: grid; place-items: center; }
+      #s4 .tick i::after { content: ""; width: 11px; height: 6px; border-left: 3px solid var(--paper); border-bottom: 3px solid var(--paper); transform: rotate(-45deg) translate(1px, -1px); }
+      #s4 .outcome { align-self: flex-start; color: var(--wire); margin-top: 2px; }
+      #s4 .outcome b { color: var(--ink); }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s4">
+      <div class="zone">
+        <div class="label">How it works</div>
+        <div class="lede">One wedding buffet moves from pledge to recorded outcome in six steps.</div>
+        <div class="example">
+          <span class="chip chip-tag">example event</span>
+          <span><b>Wedding buffet surplus</b>, 70 meals, Pearl Event Caterers, Secunderabad</span>
+        </div>
+
+        <div class="phases">
+          <div class="phase">Weeks ahead</div>
+          <div class="phase">Event night, ready 8:45 pm</div>
+          <div class="phase">Pickup, 10:00 pm</div>
+        </div>
+        <div class="steps">
+          <div class="step sup" style="--i: 0" id="st1"><h3><span class="badge">1</span>Pledge</h3><div class="pic" data-art="pledge" role="img" aria-label="Surplus pledged at booking"></div><div class="who">Host</div></div>
+          <div class="step" style="--i: 1" id="st2"><h3><span class="badge">2</span>Pre-match</h3><div class="pic" data-art="prematch" role="img" aria-label="Pickup time agreed"></div><div class="who">Receiver</div></div>
+          <div class="step sup" style="--i: 2" id="st3"><h3><span class="badge">3</span>Report</h3><div class="pic" data-art="report" role="img" aria-label="Photo or voice note, WhatsApp"></div><div class="who">Hall manager</div></div>
+          <div class="step ai" style="--i: 3" id="st4"><h3><span class="badge">4</span>Listing</h3><div class="pic" data-art="listing" role="img" aria-label="AI drafts, manager confirms"></div><div class="who">AI</div></div>
+          <div class="step clk" style="--i: 4" id="st5"><h3><span class="badge">5</span>Safety clock</h3><div class="pic" data-art="clock" role="img" aria-label="Expires at zero"></div><div class="who">Automatic</div></div>
+          <div class="step" style="--i: 5" id="st6"><h3><span class="badge">6</span>Handover</h3><div class="pic" data-art="handover" role="img" aria-label="Collected, outcome recorded"></div><div class="who">Receiver</div></div>
+        </div>
+        <div class="rail" id="rail"></div>
+
+        <div class="details">
+          <div class="detail">
+            <div class="head"><span class="badge" style="background: var(--accent-2)">1</span>Booking form</div>
+            <div class="card form">
+              <div class="known">
+                <div><span class="ico" data-art="calendar"></span>Date<span class="ok" data-art="tickmark"></span></div>
+                <div><span class="ico" data-art="guests"></span>Guests<span class="ok" data-art="tickmark"></span></div>
+                <div><span class="ico" data-art="menu"></span>Menu<span class="ok" data-art="tickmark"></span></div>
+              </div>
+              <div class="pledge"><span class="ico" data-art="tray"></span><b>Pledge surplus</b><span class="toggle pulse"></span></div>
+              <div class="note">On by default, host can opt out</div>
+            </div>
+          </div>
+          <div class="detail">
+            <div class="head"><span class="badge" style="background: var(--ai)">4</span>Listing in the app</div>
+            <div class="shot"><div class="window-bar"><i></i><i></i><i></i></div><img src="../img/app-wedding-listing-modal.png" alt="" data-count="off" /></div>
+          </div>
+          <div class="detail">
+            <div class="head"><span class="badge" style="background: var(--wire)">6</span>Handover record</div>
+            <div class="card">
+              <div class="proof">
+                <div class="ph" data-art="photo"></div>
+                <div class="ph" data-art="photo"></div>
+                <div class="stamp"><span class="ico" data-art="camera"></span>10:00 pm</div>
+              </div>
+              <div class="signs">
+                <div><span class="ok" data-art="tickmark"></span>Hall manager</div>
+                <div><span class="ok" data-art="tickmark"></span>Receiver</div>
+              </div>
+              <div class="node outcome pulse"><b>Outcome recorded</b></div>
+            </div>
+          </div>
+        </div>
+        <div class="source" data-count="off" style="margin-top: 10px">Example event and screenshot: FoodConnect demo data.</div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wirePts, flow, box, svg, railSync } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const first = box($("st1"), slide), last = box($("st6"), slide), rail = box($("rail"), slide);
+        const y = rail.y + rail.h / 2;
+        const p = wirePts(w, { x: first.x, y }, { x: last.x + last.w, y }, { shape: "straight", color: "var(--hair)", width: 3, dot: false });
+        for (let i = 1; i <= 6; i++) {
+          const b = box($("st" + i), slide);
+          w.append(svg("circle", { cx: b.x + b.w / 2, cy: y, r: 6, fill: "var(--paper)", stroke: "var(--ink-3)", "stroke-width": 2 }));
+        }
+        flow(slide, p, { dur: 9, size: 22, still: 0.6 });
+        railSync([1, 2, 3, 4, 5, 6].map((i) => $("st" + i)), slide, 9);
+      });
+    </script>
+  </body>
+</html>

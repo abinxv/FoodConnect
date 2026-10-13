@@ -1,0 +1,12 @@
+{
+  "name": "deck",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "python3 -m http.server --bind 127.0.0.1",
+    "export": "node tools/export.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}

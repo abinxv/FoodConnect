@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s5 .zone { display: flex; flex-direction: column; }
+      #s5 .lede { margin-top: 14px; font-size: 46px; max-width: 1700px; }
+      #s5 .main { display: grid; grid-template-columns: 350px 1fr 540px; gap: 0; margin-top: 34px; flex: 1; min-height: 0; align-items: center; }
+      #s5 .phone { width: 350px; height: 500px; display: flex; flex-direction: column; gap: 12px; padding: 22px 16px; }
+      #s5 .msg { --still: 0.75; animation: s5-pop 10s linear infinite; animation-delay: calc(var(--i) * 1.1s); }
+      @keyframes s5-pop { 0% { opacity: 0; transform: translateY(10px); } 5%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+      #s5 .bubble { font-size: 19px; max-width: 84%; }
+      #s5 .bubble.pic { padding: 8px; width: 170px; }
+      #s5 .bubble.pic .ph { height: 104px; color: var(--ink-2); }
+      #s5 .bubble.voice { width: 220px; height: 58px; padding: 6px 14px; color: var(--wire); }
+      #s5 .mid { display: flex; flex-direction: column; gap: 70px; align-items: center; }
+      #s5 .skill { width: 300px; border: 2px solid var(--ai); border-radius: 14px; background: var(--paper); padding: 16px 20px; display: flex; flex-direction: column; gap: 6px; position: relative; z-index: 7; }
+      #s5 .skill h3 { margin: 0; display: flex; align-items: center; gap: 10px; font: 700 24px/1.1 var(--font-sans); color: var(--ai); }
+      #s5 .skill h3 .ico { width: 28px; height: 28px; }
+      #s5 .skill p { margin: 0; font-size: 20px; color: var(--ink-2); line-height: 1.3; }
+      #s5 .listing { border: 2px solid var(--ai); border-radius: 18px; background: var(--paper); box-shadow: var(--shadow); padding: 22px 26px; display: flex; flex-direction: column; gap: 0; position: relative; z-index: 7; }
+      #s5 .listing .top { display: flex; align-items: center; justify-content: space-between; font: 700 24px/1 var(--font-sans); margin-bottom: 10px; }
+      #s5 .row { --still: 0.75; display: flex; justify-content: space-between; gap: 20px; padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 20px; color: var(--ink-3); animation: s5-pop 10s linear infinite; animation-delay: calc(3.2s + var(--i) * 0.5s); }
+      #s5 .row b { text-align: right; color: var(--ink); }
+      #s5 .confirm { margin-top: 18px; display: flex; align-items: center; gap: 16px; font-size: 20px; color: var(--ink-2); }
+      #s5 .btn { background: var(--accent-2); color: var(--accent-2); border-radius: 12px; padding: 13px 26px; font: 700 21px/1 var(--font-sans); }
+      #s5 .btn span { color: var(--paper); }
+      #s5 .rules { display: flex; gap: 22px; margin-top: 26px; }
+      #s5 .rule-chip { flex: 1; display: flex; align-items: center; gap: 14px; background: var(--panel); border: 1.5px solid var(--hair); border-radius: 12px; padding: 13px 18px; font-size: 21px; }
+      #s5 .rule-chip .ico { width: 38px; height: 38px; flex: none; color: var(--ink-2); }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s5">
+      <div class="zone">
+        <div class="label">WhatsApp and AI intake</div>
+        <div class="lede">On the night, the manager replies on WhatsApp with a tray photo or a voice note, and AI turns it into a listing to confirm with one tap.</div>
+
+        <div class="main">
+          <div class="shot phone">
+            <div class="bubble msg" style="--i: 0">Any surplus tonight?</div>
+            <div class="bubble me pic msg" style="--i: 1" id="photo"><div class="ph" data-art="photo"></div></div>
+            <div class="bubble me voice msg" style="--i: 2" id="voice"><div data-art="voicebars" style="height: 100%"></div></div>
+            <div class="bubble msg" style="--i: 4">70 meals, cooked, ready 8:45 pm. Correct?</div>
+            <div class="bubble me msg" style="--i: 5"><b>Yes</b></div>
+          </div>
+
+          <div class="mid">
+            <div class="skill" id="vision"><h3><span class="ico" data-art="camera"></span>Vision</h3><p>Photo to quantity and category</p></div>
+            <div class="skill" id="speech"><h3><span class="ico" data-art="spark"></span>Speech</h3><p>Telugu, Hindi or Urdu to text</p></div>
+          </div>
+
+          <div class="listing" id="listing">
+            <div class="top"><span>Draft listing</span><span class="chip chip-tag">example event</span></div>
+            <div class="row" style="--i: 0"><span>Food</span><b>Paneer curry, pulao, salad, sweets</b></div>
+            <div class="row" style="--i: 1"><span>Quantity</span><b>70 meals</b></div>
+            <div class="row" style="--i: 2"><span>Category</span><b>Cooked meals</b></div>
+            <div class="row" style="--i: 3"><span>Ready</span><b>8:45 pm</b></div>
+            <div class="row" style="--i: 4"><span>Storage</span><b>Refrigeration</b></div>
+            <div class="row" style="--i: 5"><span>Allergens</span><b>Dairy</b></div>
+            <div class="confirm"><div class="btn pulse"><span>Confirm</span></div>One tap by the manager</div>
+          </div>
+        </div>
+
+        <div class="rules">
+          <div class="rule-chip"><span class="ico" data-art="guests"></span><span><b>Staff share first</b>, the rest is listed</span></div>
+          <div class="rule-chip"><span class="ico" data-art="tickmark" style="color: var(--wire)"></span><span><b>The manager confirms</b> every listing</span></div>
+          <div class="rule-chip"><span class="ico" data-art="spark" style="color: var(--ai)"></span><span><b>AI never decides</b> food safety</span></div>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wire, flow } from "../lib/deck.js";
+      import { art, mount } from "../lib/art.js";
+      art.voicebars = () => `<svg class="art" viewBox="92 58 110 40" fill="none" stroke="currentColor" stroke-linecap="round" data-lint="off"><g class="art-wave">${"<path/>".repeat(7)}</g></svg>`;
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const c = "var(--ai)";
+        const a = wire(w, $("photo"), $("vision"), { arrow: true, color: c, width: 2.5 });
+        const b = wire(w, $("voice"), $("speech"), { arrow: true, color: c, width: 2.5 });
+        const d = wire(w, $("vision"), $("listing"), { arrow: true, color: c, width: 2.5, toOffset: -60 });
+        const e = wire(w, $("speech"), $("listing"), { arrow: true, color: c, width: 2.5, toOffset: 60 });
+        flow(slide, a, { dur: 4, color: c, still: 0.5 });
+        flow(slide, b, { dur: 4, color: c, still: 0.3 });
+        flow(slide, d, { dur: 4, color: c, still: 0.75 });
+        flow(slide, e, { dur: 4, color: c, still: 0.55 });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s1 .zone { display: flex; flex-direction: column; }
+      #s1 .lede { margin-top: 14px; font-size: 50px; max-width: 1640px; }
+      #s1 .scene { display: grid; grid-template-columns: 430px 1fr 430px; margin-top: 40px; height: 372px; }
+      #s1 .side { --c: var(--accent-2); border: 2px solid var(--c); border-radius: 16px; background: var(--paper); padding: 20px 24px; display: flex; flex-direction: column; gap: 6px; position: relative; z-index: 7; }
+      #s1 .side.need { --c: var(--wire); }
+      #s1 .side h3 { margin: 0; font: 700 26px/1.1 var(--font-sans); color: var(--c); }
+      #s1 .side .sub { color: var(--ink-2); font-size: 20px; }
+      #s1 .side .pics { flex: 1; display: flex; align-items: flex-end; gap: 22px; color: var(--c); }
+      #s1 .pics .a { width: 150px; height: 176px; }
+      #s1 .pics .b { width: 104px; height: 78px; }
+      #s1 .pics .p { width: 220px; height: 128px; }
+      #s1 .pics .e { width: 112px; height: 70px; color: var(--ink-3); }
+      #s1 .mid { position: relative; }
+      #s1 .gaplabel { position: absolute; left: 61%; top: 84px; transform: translateX(-50%); font: 700 24px/1 var(--font-sans); color: var(--bad); white-space: nowrap; }
+      #s1 .bin { position: absolute; left: calc(42% - 52px); bottom: 0; width: 104px; height: 125px; color: var(--bad); }
+      #s1 .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 36px; height: 280px; }
+      #s1 .panel { --c: var(--accent-2); border-top: 4px solid var(--c); background: var(--panel); border-radius: 0 0 14px 14px; padding: 22px 28px; display: flex; gap: 36px; align-items: center; }
+      #s1 .panel.need { --c: var(--wire); gap: 90px; }
+      #s1 .readout .num { font-size: 68px; letter-spacing: -0.02em; }
+      #s1 .readout .desc { font-size: 20px; max-width: 300px; }
+      #s1 .split { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+      #s1 .segs { display: flex; gap: 3px; height: 34px; }
+      #s1 .segs i { border-radius: 5px; background: var(--hair); }
+      #s1 .segs i.hot { background: var(--accent-2); color: var(--accent-2); }
+      #s1 .seglabels { display: flex; gap: 3px; font-size: 18px; color: var(--ink-2); line-height: 1.25; }
+      #s1 .seglabels b { display: block; font-size: 24px; }
+      #s1 .seglabels .hot, #s1 .seglabels .hot b { color: var(--accent-2); }
+      #s1 .foot { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+      #s1 .key { display: flex; gap: 26px; font-size: 17px; color: var(--ink-2); }
+      #s1 .key span { display: flex; align-items: center; gap: 8px; }
+      #s1 .key i { width: 14px; height: 14px; border-radius: 50%; }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s1">
+      <div class="zone">
+        <div class="label">The problem</div>
+        <div class="lede">Food services throw away 28% of the world's 1.05 billion tonnes of wasted food, while 12% of India is undernourished.</div>
+
+        <div class="scene">
+          <div class="side" id="src">
+            <h3>Surplus</h3>
+            <div class="sub">Function halls, caterers, restaurants</div>
+            <div class="pics"><div class="a" data-art="hall"></div><div class="b" data-art="tray"></div><div class="b" data-art="tray"></div></div>
+          </div>
+          <div class="mid" id="mid">
+            <div class="gaplabel">No link</div>
+            <div class="bin" id="bin" data-art="bin"></div>
+          </div>
+          <div class="side need" id="dst">
+            <h3>Need</h3>
+            <div class="sub">Shelters, community kitchens</div>
+            <div class="pics"><div class="p" data-art="people"></div><div class="e" data-art="plate"></div></div>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="panel">
+            <div class="readout"><div class="num">1.05<span class="unit">billion tonnes</span></div><div class="desc">of food wasted worldwide in 2022 <span data-count="off">[1]</span></div></div>
+            <div class="split">
+              <div class="segs"><i style="flex: 60"></i><i class="hot pulse" style="flex: 28"></i><i style="flex: 12"></i></div>
+              <div class="seglabels"><span style="flex: 60"><b>60%</b>Households</span><span class="hot" style="flex: 28"><b>28%</b>Food services</span><span style="flex: 12"><b>12%</b>Retail</span></div>
+            </div>
+          </div>
+          <div class="panel need">
+            <div class="readout"><div class="num">12<span class="unit">%</span></div><div class="desc">of India is undernourished <span data-count="off">[2]</span></div></div>
+            <div class="readout"><div class="num">102<span class="unit">of 123</span></div><div class="desc">India's rank, Global Hunger Index 2025 <span data-count="off">[2]</span></div></div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <div class="key">
+            <span><i style="background: var(--accent-2)"></i>Supplier and surplus</span>
+            <span><i style="background: var(--wire)"></i>Food reaching a receiver</span>
+            <span><i style="background: var(--bad)"></i>Wasted or expired</span>
+          </div>
+          <div class="source" data-count="off">[1] UNEP, Food Waste Index Report 2024. [2] Global Hunger Index 2025, India.</div>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, flow, box, svg } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const a = box($("src"), slide), b = box($("dst"), slide), bin = box($("bin"), slide);
+        const y = a.y + 62;
+        const x0 = a.x + a.w, x1 = b.x, bx = bin.x + bin.w / 2;
+        // surplus leaves the supplier, finds no link, and drops into the bin
+        const d = `M${x0},${y} H${bx - 46} C${bx},${y} ${bx},${y} ${bx},${y + 46} V${bin.y + 14}`;
+        const fall = svg("path", { d, fill: "none", stroke: "var(--accent-2)", "stroke-width": 3, "stroke-linecap": "round" });
+        w.append(fall);
+        flow(slide, fall, { n: 3, dur: 6, color: "var(--accent-2)", size: 20, still: 0.55 });
+        // the receiver's side of the link never arrives
+        const gx = bx + 250;
+        const dead = svg("path", { d: `M${x1},${y} H${gx}`, fill: "none", stroke: "var(--ink-3)", "stroke-width": 3, "stroke-linecap": "round", class: "march" });
+        w.append(dead);
+        w.append(svg("circle", { cx: gx - 8, cy: y, r: 7, fill: "var(--paper)", stroke: "var(--ink-3)", "stroke-width": 3 }));
+        const gl = slide.querySelector(".gaplabel");
+        gl.style.left = `${(bx + gx) / 2 + 8 - box($("mid"), slide).x}px`;
+        gl.style.top = `${y - box($("mid"), slide).y - 12}px`;
+      });
+    </script>
+  </body>
+</html>

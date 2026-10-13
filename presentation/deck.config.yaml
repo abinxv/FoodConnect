@@ -1,0 +1,71 @@
+# deck.config.yaml: edit the ??? fields, then tell Claude "config done".
+# Claude pre-filled what it could infer from the project docs (loose .md files in the repo root) and src/.
+# Anything you leave as ??? Claude will ask about. Comments explain each field.
+# Everything for the deck lives in presentation/ (config, agent_guide.md, deck/, slides/, export/).
+
+deck:
+  title: FoodConnect         # inferred from README.md
+  purpose: ideathon pitch    # from your instructions
+  audience: ideathon judges  # inferred (mixed technical / non-technical); correct me if it is a faculty panel
+  slides: 9                  # your answer, 2026-10-13
+  max_slides: null           # hard limit from the ideathon rules, if any
+  outputs: [html, pdf]       # html = the animated deck, presented in a browser; pdf = still backup
+  constraints: ["10 minute pitch"]   # your answer, 2026-10-13
+  deadline: null             # optional; helps Claude suggest how fast to go
+
+sections:                    # revamped around ../revamp.md, 2026-10-13. No title or team slide (your instruction)
+  - Problem                  # food services waste, hunger, and the gap between them
+  - Why rescue fails         # surplus appears late at night; receivers are closed; donors are afraid
+  - The idea                 # surplus is predictable: the host pledges it at booking
+  - How it works             # one wedding buffet followed from pledge to recorded outcome
+  - WhatsApp and AI intake   # tray photo or voice note becomes a listing
+  - Safety and trust         # safe-to-eat clock, handover record, registration checks, tiered trust
+  - Allocation and cascade   # awake-at-11pm receivers, rule score, waitlist, zero-bin cascade
+  - Who pays                 # pledge package, waste analytics, CSR reports
+  - Close                    # the whole loop in one picture, SDG 2 and SDG 12
+
+density:
+  information: 4             # 1 to 10. 4 = light (80 to 110 words): a live pitch with motion carries itself
+  visuals_per_slide: 2       # diagrams / flowcharts / charts / screenshots per content slide
+  visual_kinds: [animated flowcharts, architecture diagrams, pipeline, screenshots, charts, photos]   # your answer, 2026-10-13
+  replace_lists_with_diagrams: true
+
+method: simple               # vite | simple
+                             # Claude's suggestion and reason: simple. Looping animations are plain CSS
+                             # keyframes, the deck opens in any browser with no build step, and it is
+                             # easy to tweak by hand. App screenshots are still captured with Playwright.
+
+run_project:                 # Claude runs FoodConnect locally to take real screenshots
+  allowed: true              # your answer, 2026-10-13: real app screenshots
+  path: ..                   # the repo root, one level above presentation/
+  commands: ["npm run server", "npm run dev"]   # from README.md
+  ports_to_avoid: [5000]     # macOS AirPlay often holds 5000; the API would run on another PORT
+  demo_account: supplier@foodconnect.demo / receiver@foodconnect.demo / admin@foodconnect.demo (demo123)   # public demo accounts from README.md
+
+look:
+  template: none             # from your instructions: no template
+  theme: light               # your answer, 2026-10-13
+  palette_from: proposal     # Claude proposes 2 directions on the style board, drawing on the app's colours
+  fonts: Inter               # from your instructions: standard, common fonts. Inter for everything,
+                             # with Arial / Helvetica as fallback. Say so if you prefer Poppins or Roboto.
+  motion: looping            # from your instructions: animated deck, CSS animations that loop while a
+                             # slide is on screen. PNG review stills and the PDF show one frozen frame.
+
+content_policy:
+  claims: present-as-designed   # your instruction, 2026-10-13: pitch the FINAL product, assume everything is
+                             # built, no work-in-progress chips. What is built so far is covered in person.
+  completion_claims: never
+  data: real-only            # product examples use the app's demo records, shown as an example event,
+                             # never as measured real-world impact
+  external_sources: allowed  # your answer, 2026-10-13: cited web statistics and credited free-licence photos
+  citations: numbered
+  naming: []
+
+writing:
+  english_style: indian      # inferred: Hyderabad project. British spelling, simple direct sentences
+  register: plain
+  number_grouping: international
+  extra_rules: []
+
+review:
+  cadence: one-at-a-time     # one-at-a-time | batches-of-2 | batches-of-3 (after the pilot slide is approved)

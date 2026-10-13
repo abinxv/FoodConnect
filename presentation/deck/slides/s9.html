@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s9 .zone { display: flex; flex-direction: column; }
+      #s9 .lede { margin-top: 14px; font-size: 46px; max-width: 1720px; }
+      #s9 .main { display: grid; grid-template-columns: 1fr 420px; gap: 50px; margin-top: 26px; flex: 1; min-height: 0; }
+      #s9 .ring { position: relative; }
+      #s9 .stop { --c: var(--wire); position: absolute; width: 196px; margin: -62px 0 0 -98px; border: 2px solid var(--c); border-radius: 14px; background: var(--paper); padding: 10px 12px 10px; z-index: 7; text-align: center; }
+      #s9 .stop.sup { --c: var(--accent-2); }
+      #s9 .stop.ai { --c: var(--ai); }
+      #s9 .stop.clk { --c: var(--clock); }
+      #s9 .stop .pic { height: 70px; color: var(--c); }
+      #s9 .stop h3 { margin: 6px 0 0; font: 700 20px/1.1 var(--font-sans); }
+      #s9 .core { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; }
+      #s9 .core .name { font: 700 46px/1 var(--font-sans); letter-spacing: -0.02em; color: var(--wire); }
+      #s9 .core .sub { margin-top: 10px; font-size: 22px; color: var(--ink-2); }
+      #s9 .side { display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+      #s9 .goal { display: flex; align-items: center; gap: 18px; border-radius: 14px; padding: 18px 22px; background: var(--panel); border: 1.5px solid var(--hair); }
+      #s9 .goal .num { font: 700 48px/1 var(--font-num); min-width: 64px; }
+      #s9 .goal div { font-size: 21px; line-height: 1.25; color: var(--ink-2); }
+      #s9 .goal b { display: block; font-size: 24px; }
+      #s9 .first { border: 2px solid var(--accent-2); border-radius: 14px; padding: 18px 22px; display: flex; align-items: center; gap: 18px; font-size: 21px; color: var(--ink-2); line-height: 1.25; }
+      #s9 .first .ico { width: 62px; height: 72px; flex: none; color: var(--accent-2); }
+      #s9 .first b { display: block; font-size: 24px; }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s9">
+      <div class="zone">
+        <div class="label">FoodConnect in one loop</div>
+        <div class="lede">Hosts pledge surplus at booking, a receiver that is awake is waiting, a safety clock protects everyone, and every listing ends with a recorded outcome.</div>
+
+        <div class="main">
+          <div class="ring" id="ring">
+            <div class="core"><div class="name">FoodConnect</div></div>
+            <div class="stop sup" data-a="-90"><div class="pic" data-art="pledge"></div><h3>Pledge at booking</h3></div>
+            <div class="stop sup" data-a="-30"><div class="pic" data-art="report"></div><h3>WhatsApp report</h3></div>
+            <div class="stop ai" data-a="30"><div class="pic" data-art="listing"></div><h3>AI listing</h3></div>
+            <div class="stop clk" data-a="90"><div class="pic" data-art="clock"></div><h3>Safety clock</h3></div>
+            <div class="stop" data-a="150"><div class="pic" data-art="handover"></div><h3>Handover</h3></div>
+            <div class="stop" data-a="210"><div class="pic" data-art="chart"></div><h3>Waste report</h3></div>
+          </div>
+
+          <div class="side">
+            <div class="goal"><div class="num">2</div><div><b>Zero Hunger</b>Sustainable Development Goal 2</div></div>
+            <div class="goal"><div class="num">12</div><div><b>Responsible Consumption and Production</b>Sustainable Development Goal 12</div></div>
+            <div class="first"><span class="ico" data-art="hall"></span><div><b>First segment</b>Function halls in Hyderabad</div></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, flow, svg } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        const ring = document.getElementById("ring");
+        const W = ring.offsetWidth, H = ring.offsetHeight;
+        const cx = W / 2, cy = H / 2, rx = W / 2 - 110, ry = H / 2 - 70;
+        for (const el of ring.querySelectorAll(".stop")) {
+          const a = (Number(el.dataset.a) * Math.PI) / 180;
+          el.style.left = `${cx + rx * Math.cos(a)}px`;
+          el.style.top = `${cy + ry * Math.sin(a)}px`;
+        }
+        const w = layer(ring, 3);
+        // clockwise ellipse starting at the top
+        const d = `M${cx},${cy - ry} A${rx},${ry} 0 1 1 ${cx - 0.01},${cy - ry} Z`;
+        w.append(svg("path", { d, fill: "none", stroke: "var(--hair)", "stroke-width": 3 }));
+        const p = svg("path", { d, fill: "none", stroke: "none" });
+        w.append(p);
+        flow(ring, p, { n: 6, dur: 18, size: 20, still: 0.08 });
+      });
+    </script>
+  </body>
+</html>

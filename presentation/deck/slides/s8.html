@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s8 .zone { display: flex; flex-direction: column; }
+      #s8 .lede { margin-top: 14px; font-size: 46px; max-width: 1700px; }
+      #s8 .lines { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; margin-top: 40px; }
+      #s8 .line { --c: var(--accent-2); --still: 0.5; border: 2px solid var(--c); border-radius: 16px; background: var(--paper); padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; min-height: 560px;
+        animation: s8-on 9s linear infinite; animation-delay: calc(var(--i) * 3s); }
+      #s8 .line.green { --c: var(--wire); }
+      #s8 .line.ink { --c: var(--ink-2); }
+      @keyframes s8-on {
+        0%, 30% { box-shadow: 0 12px 28px color-mix(in srgb, var(--c) 26%, transparent); transform: translateY(-6px); }
+        34%, 100% { box-shadow: none; transform: none; }
+      }
+      #s8 .payer { display: flex; align-items: center; gap: 12px; font: 700 28px/1.1 var(--font-sans); color: var(--c); }
+      #s8 .payer .badge { background: var(--c); }
+      #s8 .who { font-size: 20px; color: var(--ink-2); }
+      #s8 .pays { margin-top: 4px; padding-top: 14px; border-top: 1.5px solid var(--hair); font: 600 23px/1.25 var(--font-sans); }
+      #s8 .pays span { display: block; font: 400 20px/1.3 var(--font-sans); color: var(--ink-2); margin-top: 4px; }
+      #s8 .sample { flex: 1; background: var(--panel); border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; justify-content: center; gap: 10px; color: var(--c); }
+      #s8 .sample .pic { height: 140px; }
+      #s8 .sample .quote { font: 600 22px/1.3 var(--font-sans); color: var(--ink); }
+      #s8 .sample .row2 { display: flex; align-items: center; gap: 18px; }
+      #s8 .sample .row2 .pic { width: 160px; flex: none; }
+      #s8 .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; margin-top: auto; }
+      #s8 .n { display: flex; align-items: center; gap: 16px; background: var(--panel); border: 1.5px solid var(--hair); border-radius: 12px; padding: 14px 20px; font-size: 21px; }
+      #s8 .n .ico { width: 40px; height: 40px; flex: none; color: var(--wire); }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s8">
+      <div class="zone">
+        <div class="label">Who pays</div>
+        <div class="lede">Three groups pay: hosts for the pledge package, kitchens for waste analytics, and sponsors for audited impact reports.</div>
+
+        <div class="lines">
+          <div class="line" style="--i: 0">
+            <div class="payer"><span class="badge">1</span>Hosts</div>
+            <div class="who">Function halls and caterers</div>
+            <div class="sample"><div class="row2"><div class="pic" data-art="card"></div><div class="quote">Coordination and the impact card</div></div></div>
+            <div class="pays">Pledge package<span>A per-event fee in the catering contract</span></div>
+          </div>
+          <div class="line green" style="--i: 1">
+            <div class="payer"><span class="badge">2</span>Kitchens</div>
+            <div class="who">Restaurants, hotels, caterers</div>
+            <div class="sample"><div class="pic" data-art="chart"></div><div class="quote">"You over-produce biryani 18% on Tuesdays" <span class="chip chip-tag" style="margin-left: 6px">sample report</span></div></div>
+            <div class="pays">Waste analytics<span>A subscription, private to the kitchen</span></div>
+          </div>
+          <div class="line ink" style="--i: 2">
+            <div class="payer"><span class="badge">3</span>Sponsors</div>
+            <div class="who">Companies with CSR budgets</div>
+            <div class="sample"><div class="row2"><div class="pic" data-art="audit"></div><div class="quote">Audited impact reports from handover records</div></div></div>
+            <div class="pays">CSR and ESG reporting<span>For hotel chains and corporate sponsors</span></div>
+          </div>
+        </div>
+
+        <div class="notes">
+          <div class="n"><span class="ico" data-art="tickmark"></span><span>Suppliers are ranked by <b>reliability</b>: pledges honoured, handovers on time</span></div>
+          <div class="n"><span class="ico" data-art="leaf"></span><span><b>Less surplus is the goal</b>: reducing waste at the source comes first</span></div>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide();
+    </script>
+  </body>
+</html>

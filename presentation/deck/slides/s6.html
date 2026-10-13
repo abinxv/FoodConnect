@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s6 .zone { display: flex; flex-direction: column; }
+      #s6 .lede { margin-top: 14px; font-size: 46px; max-width: 1700px; }
+      #s6 .main { display: grid; grid-template-columns: 1fr 560px; gap: 60px; margin-top: 40px; flex: 1; min-height: 0; }
+      #s6 .clockwork { display: grid; grid-template-columns: 330px 1fr 250px; align-items: center; background: var(--panel); border: 1.5px solid var(--hair); border-radius: 18px; padding: 30px 34px; }
+      #s6 .inputs { display: flex; flex-direction: column; gap: 26px; }
+      #s6 .inp { display: flex; align-items: center; gap: 14px; background: var(--paper); border: 2px solid var(--clock); border-radius: 12px; padding: 14px 18px; position: relative; z-index: 7; }
+      #s6 .inp .ico { width: 40px; height: 40px; flex: none; color: var(--clock); }
+      #s6 .inp div { font-size: 19px; color: var(--ink-2); line-height: 1.25; }
+      #s6 .inp b { display: block; font-size: 22px; }
+      #s6 .dial { justify-self: center; display: flex; flex-direction: column; align-items: center; gap: 16px; position: relative; z-index: 7; }
+      #s6 .clockring { --size: 250px; animation-duration: 12s; --still: 0.4; }
+      #s6 .clockring > div { width: 204px; height: 204px; font: 700 30px/1.15 var(--font-sans); background: var(--panel); }
+      #s6 .clockring small { display: block; font: 500 19px/1.2 var(--font-sans); color: var(--ink-2); margin-top: 4px; }
+      #s6 .ends { display: flex; flex-direction: column; gap: 70px; }
+      #s6 .end { border-radius: 12px; padding: 14px 18px; font: 600 21px/1.25 var(--font-sans); background: var(--paper); position: relative; z-index: 7; }
+      #s6 .end.ok { border: 2px solid var(--wire); }
+      #s6 .end.out { border: 2px solid var(--bad); color: var(--bad); }
+      #s6 .end span { display: block; font-weight: 400; font-size: 18px; color: var(--ink-2); }
+      #s6 .trust { display: flex; flex-direction: column; gap: 22px; }
+      #s6 .t { flex: 1; display: flex; align-items: center; gap: 24px; border: 1.5px solid var(--hair); border-radius: 14px; padding: 16px 24px; }
+      #s6 .t .pic { width: 130px; height: 104px; flex: none; color: var(--wire); }
+      #s6 .t h3 { margin: 0 0 6px; font: 700 25px/1.15 var(--font-sans); }
+      #s6 .t p { margin: 0; font-size: 20px; line-height: 1.3; color: var(--ink-2); }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s6">
+      <div class="zone">
+        <div class="label">Safety and trust</div>
+        <div class="lede">A safe-to-eat clock, computed from preparation time, food category and ambient temperature, expires each listing automatically.</div>
+
+        <div class="main">
+          <div class="clockwork">
+            <div class="inputs">
+              <div class="inp" id="i1"><span class="ico" data-art="stopwatch"></span><div><b>Prepared</b>8:45 pm</div></div>
+              <div class="inp" id="i2"><span class="ico" data-art="menu"></span><div><b>Category</b>Cooked meals</div></div>
+              <div class="inp" id="i3"><span class="ico" data-art="thermo"></span><div><b>Temperature</b>Live, outdoors</div></div>
+            </div>
+            <div class="dial" id="dial">
+              <div class="clockring"><div><span>Safe to eat<small>countdown</small></span></div></div>
+            </div>
+            <div class="ends">
+              <div class="end ok" id="e1">Handed over<span>inside the window</span></div>
+              <div class="end out" id="e2">Listing expires<span>at zero</span></div>
+            </div>
+          </div>
+
+          <div class="trust">
+            <div class="t"><div class="pic" data-art="photo" style="color: var(--ink-2)"></div><div><h3>Handover record</h3><p>Photos, timestamp, both sign</p></div></div>
+            <div class="t"><div class="pic" data-art="idcard"></div><div><h3>Checked registrations</h3><p>FSSAI licence, NGO registration</p></div></div>
+            <div class="t"><div class="pic" data-art="steps"></div><div><h3>Tiered trust</h3><p>Limits rise with completed handovers</p></div></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wire, flow } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const c = "var(--clock)";
+        ["i1", "i2", "i3"].forEach((id, k) => {
+          const p = wire(w, $(id), $("dial"), { arrow: true, color: c, width: 2.5, toOffset: (k - 1) * 46 });
+          flow(slide, p, { dur: 4, color: c, still: 0.3 + k * 0.2 });
+        });
+        const a = wire(w, $("dial"), $("e1"), { arrow: true, color: "var(--wire)", width: 2.5, fromOffset: -40 });
+        flow(slide, a, { dur: 4, still: 0.6 });
+        const b = wire(w, $("dial"), $("e2"), { arrow: true, color: "var(--bad)", width: 2.5, fromOffset: 40 });
+        b.classList.add("march");
+      });
+    </script>
+  </body>
+</html>
