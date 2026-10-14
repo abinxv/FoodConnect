@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s3 .zone { display: flex; flex-direction: column; }
+      #s3 .lede { margin-top: 14px; font-size: 44px; max-width: 1660px; }
+      #s3 .pipe { display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 58px; margin-top: 36px; }
+      #s3 .stg { --c: var(--wire); border: 2px solid var(--c); border-radius: 18px; background: var(--paper); padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 7; height: 540px; }
+      #s3 .stg.sup { --c: var(--accent-2); }
+      #s3 .stg.ai { --c: var(--ai); }
+      #s3 .stg.clk { --c: var(--clock); }
+      #s3 .stg.neu { --c: var(--ink-2); }
+      #s3 .stg h3 { margin: 0; display: flex; align-items: center; gap: 10px; font: 700 23px / 1.1 var(--font-sans); }
+      #s3 .stg h3 .badge { background: var(--c); }
+      #s3 .stg .chip { align-self: flex-start; }
+      #s3 .pic { height: 200px; color: var(--c); display: grid; place-items: center; }
+      #s3 .pic > div { width: 100%; height: 100%; }
+      #s3 .pic > .clockring { width: var(--size); height: var(--size); }
+      #s3 .d { font-size: 19px; line-height: 1.3; color: var(--ink-2); }
+      #s3 .d b { color: var(--ink); }
+      #s3 .fallback { margin-top: 6px; display: flex; align-items: center; gap: 8px; font-size: 17px; color: var(--ink-2); }
+      #s3 .clockring { --size: 176px; }
+      #s3 .clockring > div { font-size: 21px; color: var(--clock); }
+      #s3 .wts { display: flex; flex-direction: column; gap: 18px; margin: 14px 0 6px; }
+      #s3 .wt { display: grid; grid-template-columns: 110px 1fr 44px; align-items: center; gap: 8px; font-size: 18px; color: var(--ink-2); }
+      #s3 .wt b { text-align: right; font-size: 18px; }
+      #s3 .wt .bar { height: 12px; }
+      #s3 .wt .bar > span { --still: 0.6; }
+      #s3 .rulechips { display: flex; flex-wrap: wrap; gap: 6px; }
+      #s3 .rulechips span { font-size: 17px; padding: 5px 9px; border-radius: 8px; background: var(--panel); color: var(--ink-2); }
+      #s3 .lit { animation: s3-on 10s linear infinite; --still: 0.7; }
+      @keyframes s3-on {
+        /* lit for one card width (17.3% of the rail), off within the gap before the next card */
+        0%, 17.3% { box-shadow: 0 10px 26px color-mix(in srgb, var(--c) 28%, transparent); transform: translateY(-6px); }
+        18%, 100% { box-shadow: none; transform: none; }
+      }
+
+      #s3 .eg { margin-top: auto; padding: 12px 14px; border-radius: 12px; background: color-mix(in srgb, var(--c) 9%, var(--paper)); font: 600 20px / 1.3 var(--font-sans); display: flex; flex-direction: column; gap: 8px; }
+      #s3 .eg .chip { font-weight: 600; }
+      /* the followed example, one line per stage */
+      #s3 .ex { display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 58px; margin-top: 18px; }
+      #s3 .ex > div { font-size: 21px; line-height: 1.3; color: var(--ink); padding-left: 14px; border-left: 3px solid var(--hair); }
+      #s3 .exhead { display: flex; align-items: center; gap: 14px; margin-top: 26px; font-size: 19px; color: var(--ink-2); }
+
+      /* what each person does */
+      #s3 .acc { margin-top: auto; display: grid; grid-template-columns: 120px 1fr 1fr 1fr; gap: 22px; align-items: center; background: var(--panel); border-radius: 16px; padding: 14px 22px; }
+      #s3 .acc .k { font: 700 var(--fs-label) / 1.2 var(--font-sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
+      #s3 .who { display: flex; align-items: center; gap: 14px; font-size: 20px; }
+      #s3 .who .ico { width: 46px; height: 46px; flex: none; }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s3">
+      <div class="zone">
+        <div class="label">Intake, safety and matching</div>
+        <div class="lede">Kitchens report on WhatsApp in their own language, and fixed rules plus a weighted score pick the receiver.</div>
+
+        <div class="pipe">
+          <div class="stg sup lit" id="c1">
+            <h3><span class="badge">1</span>Report</h3><span class="chip chip-design">designed</span>
+            <div class="pic"><div data-art="report"></div></div>
+            <div class="d"><b>Photo or voice note</b></div>
+            <div class="fallback"><span class="chip chip-built">built</span>Web form</div>
+            <div class="eg"><span class="chip chip-tag">example event</span>Wedding buffet: photo, voice note</div>
+          </div>
+          <div class="stg ai lit" id="c2">
+            <h3><span class="badge">2</span>AI intake</h3><span class="chip chip-design">designed</span>
+            <div class="pic"><div data-art="listing"></div></div>
+            <div class="d"><b>Vision:</b> quantity, category<br /><b>Speech:</b> Telugu, Hindi, Urdu</div>
+            <div class="fallback">Manager confirms</div>
+            <div class="eg">70 meals, cooked, dairy</div>
+          </div>
+          <div class="stg clk lit" id="c3">
+            <h3><span class="badge">3</span>Safety clock</h3><span class="chip chip-design">designed</span>
+            <div class="pic"><div class="clockring"><div>safe<br />window</div></div></div>
+            <div class="d"><b>Prep time, category, heat</b>; expires at zero</div>
+            <div class="eg">Ready 8:45 pm</div>
+          </div>
+          <div class="stg neu lit" id="c4">
+            <h3><span class="badge">4</span>10 rules</h3><span class="chip chip-built">built</span>
+            <div class="pic"><div data-art="funnel" style="width: 140px; height: 140px"></div></div>
+            <div class="rulechips"><span>category</span><span>storage</span><span>allergens</span><span>capacity</span><span>deadline</span><span>distance</span></div>
+            <div class="eg">8 receivers, 1 qualifies</div>
+          </div>
+          <div class="stg lit" id="c5">
+            <h3><span class="badge">5</span>Rule score</h3><span class="chip chip-built">built</span>
+            <div class="wts">
+              <div class="wt"><span>Demand</span><div class="bar"><span style="--v: 100%"></span></div><b>0.30</b></div>
+              <div class="wt"><span>Urgency</span><div class="bar"><span style="--v: 83%; --delay: 0.2s"></span></div><b>0.25</b></div>
+              <div class="wt"><span>Distance</span><div class="bar"><span style="--v: 67%; --delay: 0.4s"></span></div><b>0.20</b></div>
+              <div class="wt"><span>Quantity fit</span><div class="bar"><span style="--v: 50%; --delay: 0.6s"></span></div><b>0.15</b></div>
+              <div class="wt"><span>Reliability</span><div class="bar"><span style="--v: 33%; --delay: 0.8s"></span></div><b>0.10</b></div>
+            </div>
+            <div class="fallback"><span data-art="home" style="width: 30px; height: 34px; color: var(--wire)"></span>Receiver booked</div>
+            <div class="eg">Takes 40, 30 move on</div>
+          </div>
+        </div>
+
+        <div class="acc">
+          <span class="k">Effort</span>
+          <span class="who"><span class="ico" data-art="hall" style="color: var(--accent-2)"></span>Manager: one message</span>
+          <span class="who"><span class="ico" data-art="home" style="color: var(--wire)"></span>Receiver: confirms pickup</span>
+          <span class="who"><span class="ico" data-art="tickmark" style="color: var(--ink-2); width: 34px; height: 34px"></span>Nothing to install</span>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wire, flow, box, wirePts, railSync } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const cards = [1, 2, 3, 4, 5].map((i) => $("c" + i));
+        const cols = ["var(--accent-2)", "var(--ai)", "var(--clock)", "var(--ink-2)"];
+        for (let i = 0; i < 4; i++) wire(w, cards[i], cards[i + 1], { arrow: true, color: cols[i], width: 2.5, from: "right", to: "left", shape: "straight" });
+        // one token crosses the whole pipeline; each card lifts as it passes
+        const a = box(cards[0], slide), b = box(cards[4], slide);
+        const y = a.y + a.h + 10;
+        const p = wirePts(w, { x: a.x, y }, { x: b.x + b.w, y }, { shape: "straight", color: "transparent", width: 1, dot: false });
+        flow(slide, p, { dur: 10, size: 20, color: "var(--wire)", still: 0.7 });
+        railSync(cards, slide, 10);
+      });
+    </script>
+  </body>
+</html>

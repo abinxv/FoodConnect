@@ -1,0 +1,59 @@
+# deck.config.yaml for the FoodConnect technical architecture deck (presentation/architecture/).
+# Sister deck of the pitch deck in presentation/ (same look). Decisions live in agent_guide.md.
+
+deck:
+  title: FoodConnect architecture
+  purpose: technical architecture walkthrough for the ideathon
+  audience: technical judges        # user answer, 2026-10-14
+  slides: 7                         # 6 planned, s7 scaling strategy added 2026-10-14
+  max_slides: null
+  outputs: [html, pdf]
+  constraints: []
+  deadline: null
+
+sections:                           # revised 2026-10-14: one evaluation criterion per slide
+  - System overview                 # criterion 6, presentation
+  - Prevention engine               # criteria 3 and 6 (approved pilot)
+  - Intake, safety and matching     # criterion 2, user acceptance: no new workflow
+  - Impact measurement              # criterion 4: confirmed handovers, SDG indicators
+  - Risk and long-term viability    # criterion 5
+  - Execution roadmap and resources # criterion 3, with criteria 1 and 2 as phase gates
+  - Scaling strategy                # added 2026-10-14: levels, levers, gates
+
+density:
+  information: 5                    # technical audience: 80 to 120 words
+  visuals_per_slide: 2
+  visual_kinds: [architecture diagrams, animated flowcharts, pipeline, charts drawn as concepts]
+  replace_lists_with_diagrams: true
+
+method: simple                      # same as the pitch deck: plain HTML + CSS loops
+
+run_project:
+  allowed: true
+  path: ../..
+  commands: ["npm run server", "npm run dev"]
+  ports_to_avoid: [5000]
+
+look:
+  template: none
+  theme: light
+  palette_from: pitch deck direction A (copied tokens.css)
+  fonts: Inter
+  motion: looping
+
+content_policy:
+  claims: mark-status               # user answer, 2026-10-14: every component tagged "built" or "designed"
+  completion_claims: never
+  data: real-only
+  external_sources: allowed
+  citations: numbered
+  naming: []
+
+writing:
+  english_style: indian
+  register: plain
+  number_grouping: international
+  extra_rules: []
+
+review:
+  cadence: one-at-a-time

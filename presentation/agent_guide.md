@@ -323,6 +323,7 @@ sed 's/<html lang="en">/<html lang="en" data-palette="b">/' slides/board.html > 
 | deck/present.html | arrow-key presenter for the live pitch |
 | deck/tools/capture_app.mjs | repeatable app screenshots into deck/img/ |
 | deck/img/app-*.png | real app screens: receiver overview, available food, wedding buffet listing |
+| architecture/ | sister deck (2026-10-14): technical architecture, 6 slides, same look; its own agent_guide.md |
 
 ## 12. Ideas
 

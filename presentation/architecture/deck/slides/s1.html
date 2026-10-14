@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s1 .zone { display: flex; flex-direction: column; }
+      #s1 .lede { margin-top: 14px; font-size: 44px; max-width: 1600px; }
+      #s1 .arch { display: grid; grid-template-columns: 270px 1fr 270px; column-gap: 80px; margin-top: 30px; }
+      #s1 .colhead { font: 700 var(--fs-label) / 1.2 var(--font-sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
+      #s1 .side { display: flex; flex-direction: column; gap: 18px; padding-top: 124px; }
+      #s1 .nd { display: flex; align-items: center; gap: 14px; padding: 13px 16px; border-radius: 14px; border: 2px solid var(--hair); background: var(--paper); position: relative; z-index: 7; font: 600 20px / 1.2 var(--font-sans); }
+      #s1 .nd .ico { width: 40px; height: 40px; flex: none; }
+      #s1 .nd small { display: block; font: 400 16px / 1.2 var(--font-sans); color: var(--ink-2); margin-top: 3px; }
+      #s1 .nd.sup { border-color: var(--accent-2); }
+      #s1 .nd.sup .ico { color: var(--accent-2); }
+      #s1 .nd.rec { border-color: var(--wire); }
+      #s1 .nd.rec .ico { color: var(--wire); }
+      #s1 .nd.dz { border-style: dashed; }
+      #s1 .nd > .tech { margin-left: auto; font-size: 14px; padding: 4px 7px; }
+      #s1 .st.b { background: var(--wire); }
+      #s1 .st.d { border: 2px dashed var(--ink-3); }
+
+      #s1 .core { display: flex; flex-direction: column; }
+      #s1 .ext { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 26px; height: 64px; }
+      #s1 .ext .nd { padding: 8px 14px; font-size: 18px; border-style: dashed; border-color: var(--ink-3); }
+      #s1 .ext .nd.ai { border-color: var(--ai); }
+      #s1 .ext .nd.ai .ico { color: var(--ai); }
+      #s1 .ext .nd .ico { width: 30px; height: 30px; color: var(--ink-3); }
+      #s1 .api { margin-top: 60px; border: 2px solid var(--ink-2); border-radius: 20px; background: var(--panel); padding: 14px 20px 20px; position: relative; z-index: 3; }
+      #s1 .api .top { display: flex; align-items: center; justify-content: flex-end; gap: 14px; font: 700 21px / 1 var(--font-sans); color: var(--ink-2); }
+      #s1 .engines { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 26px; margin-top: 14px; }
+      #s1 .eng { --c: var(--ink-2); border: 2px solid var(--c); border-radius: 16px; background: var(--paper); padding: 18px 18px 20px; min-height: 250px; position: relative; z-index: 7; }
+      #s1 .eng.sup { --c: var(--accent-2); }
+      #s1 .eng.rec { --c: var(--wire); }
+      #s1 .eng h3 { margin: 0 0 4px; display: flex; align-items: center; gap: 10px; font: 700 23px / 1.1 var(--font-sans); color: var(--c); }
+      #s1 .eng h3 .ico { width: 34px; height: 34px; }
+      #s1 .eng .sub { font-size: 16px; color: var(--ink-3); margin-bottom: 10px; }
+      #s1 .chips { display: flex; flex-wrap: wrap; gap: 9px; }
+      #s1 .eng.lit { animation: s1-on 9s linear infinite; animation-delay: calc(var(--i) * 3s); --still: 0.1; }
+      @keyframes s1-on { 0%, 30% { box-shadow: 0 8px 24px color-mix(in srgb, var(--c) 28%, transparent); } 33.3%, 100% { box-shadow: none; } }
+
+      #s1 .rec-strip { margin-top: 70px; border-radius: 18px; background: var(--ink); color: var(--paper); padding: 20px 22px 30px; position: relative; z-index: 7; }
+      #s1 .rec-strip .top { display: flex; align-items: center; gap: 14px; font: 700 21px / 1 var(--font-sans); }
+      #s1 .rec-strip .top span { font: 400 17px / 1 var(--font-sans); color: color-mix(in srgb, var(--paper) 75%, var(--ink)); margin-left: auto; }
+      #s1 .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 26px; margin-top: 16px; }
+      #s1 .step { text-align: center; padding: 16px 6px; border-radius: 10px; background: color-mix(in srgb, var(--paper) 12%, var(--ink)); font: 600 19px / 1 var(--font-sans); position: relative; z-index: 7; }
+
+      #s1 .key { margin-top: auto; display: flex; gap: 30px; font-size: 18px; color: var(--ink-2); align-items: center; }
+      #s1 .key span { display: inline-flex; align-items: center; gap: 8px; }
+      #s1 .key i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s1">
+      <div class="zone">
+        <div class="label">System overview</div>
+        <div class="lede">FoodConnect is three engines, prevention, redistribution and reporting, around one record of every listing and its outcome.</div>
+
+        <div class="arch">
+          <div class="side" id="chan">
+            <div class="colhead">Channels</div>
+            <div class="nd sup dz" id="ch1"><span class="ico" data-art="tray"></span><div>Costing software<small>kitchens</small></div></div>
+            <div class="nd sup dz" id="ch2"><span class="ico" data-art="chat"></span><div>WhatsApp<small>kitchens, receivers</small></div></div>
+            <div class="nd rec" id="ch3"><span class="ico" data-art="form"></span><div>Web app<small>all roles</small></div></div>
+          </div>
+
+          <div class="core">
+            <div class="ext">
+              <div class="nd" id="x1"><span class="ico" data-art="thermo"></span>Weather API</div>
+              <div class="nd ai" id="x2"><span class="ico" data-art="spark"></span>Vision, speech models</div>
+              <div></div>
+            </div>
+            <div class="api" id="api">
+              <div class="top">API <span class="tech b">Node.js, Express</span></div>
+              <div class="engines">
+                <div class="eng sup lit" id="e1" style="--i: 0">
+                  <h3><span class="ico" data-art="chart"></span>Prevention</h3>
+                  <div class="sub">Python, FastAPI</div>
+                  <div class="chips"><span class="tech">Forecast</span><span class="tech">Prep sheet</span></div>
+                </div>
+                <div class="eng rec lit" id="e2" style="--i: 1">
+                  <h3><span class="ico" data-art="home"></span>Redistribution</h3>
+                  <div class="sub">listing to handover</div>
+                  <div class="chips"><span class="tech">AI intake</span><span class="tech">Safety clock</span><span class="tech b">10 rules</span><span class="tech b">Rule score</span><span class="tech b">Handover</span><span class="tech">Cascade</span></div>
+                </div>
+                <div class="eng lit" id="e3" style="--i: 2">
+                  <h3><span class="ico" data-art="audit"></span>Reporting</h3>
+                  <div class="sub">from confirmed records</div>
+                  <div class="chips"><span class="tech b">Impact dashboard</span><span class="tech">Waste report</span><span class="tech">City export</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="rec-strip" id="strip">
+              <div class="top">One record per listing<span>MongoDB target; JSON store and seeded data today</span></div>
+              <div class="steps" id="steps">
+                <div class="step" id="k1">Forecast</div><div class="step" id="k2">Listing</div><div class="step" id="k3">Reservation</div><div class="step" id="k4">Handover</div><div class="step" id="k5">Outcome</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="side" id="read">
+            <div class="colhead">Report readers</div>
+            <div class="nd sup" id="r1"><span class="ico" data-art="tray"></span>Kitchens</div>
+            <div class="nd" id="r2"><span class="ico" data-art="audit" style="color: var(--ink-2)"></span>CSR sponsors</div>
+            <div class="nd" id="r3"><span class="ico" data-art="city" style="color: var(--ink-2)"></span>City bodies</div>
+          </div>
+        </div>
+
+        <div class="key">
+          <span><i style="background: var(--accent-2)"></i>supplier side</span>
+          <span><i style="background: var(--wire)"></i>food to receivers</span>
+          <span><i style="background: var(--ai)"></i>AI or model</span>
+          <span><span class="tech b" style="padding: 4px 8px; font-size: 15px">built</span><span class="tech" style="padding: 4px 8px; font-size: 15px">designed</span></span>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wire, wirePts, flow, box } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const sup = "var(--accent-2)", grn = "var(--wire)", grey = "var(--ink-3)", ai = "var(--ai)";
+        // channels into the API
+        [["ch1", sup], ["ch2", sup], ["ch3", grn]].forEach(([id, c], i) => {
+          const p = wire(w, $(id), $("api"), { to: "left", toOffset: -40 + i * 40, arrow: true, color: c, width: 2.5 });
+          flow(slide, p, { dur: 4, color: c, still: 0.4 + i * 0.15, phase: i });
+        });
+        // external services down into their engines
+        wire(w, $("x1"), $("e1"), { from: "bottom", to: "top", arrow: true, color: grey, width: 2.5, shape: "straight" });
+        wire(w, $("x2"), $("e2"), { from: "bottom", to: "top", arrow: true, color: ai, width: 2.5, shape: "straight" });
+        // each engine writes to the shared record
+        const st = box($("strip"), slide);
+        [["e1", sup], ["e2", grn], ["e3", grey]].forEach(([e, c]) => {
+          const eb = box($(e), slide), x = eb.x + eb.w / 2;
+          const p = wirePts(w, { x, y: eb.y + eb.h }, { x, y: st.y }, { shape: "straight", arrow: true, color: c, width: 2.5, to: "top" });
+          flow(slide, p, { dur: 3, color: c, still: 0.5 });
+        });
+        // reporting out to its readers
+        ["r1", "r2", "r3"].forEach((id, i) => wire(w, $("api"), $(id), { from: "right", fromOffset: 40 + (i - 1) * 50, to: "left", arrow: true, color: grey, width: 2.5 }));
+        // one token walks the record from forecast to outcome
+        const a = box($("k1"), slide), b = box($("k5"), slide);
+        const y = a.y + a.h + 15;
+        const p = wirePts(w, { x: a.x + 20, y }, { x: b.x + b.w - 20, y }, { shape: "straight", color: "transparent", width: 1, dot: false });
+        flow(slide, p, { dur: 6, size: 14, color: "var(--paper)", still: 0.6 });
+      });
+    </script>
+  </body>
+</html>

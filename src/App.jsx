@@ -26,36 +26,12 @@ const navItems = (role) => [
 const receiver = organizations.find((org) => org.id === 'org-4');
 const supplier = organizations.find((org) => org.id === 'org-1');
 const getOrg = (id) => organizations.find((org) => org.id === id);
-const apiUrl = 'http://127.0.0.1:5000/api';
 
 function Stat({ label, value, detail, icon: Icon, accent = 'green' }) {
   return <section className={`stat-card ${accent}`}><div><p>{label}</p><strong>{value}</strong><span>{detail}</span></div><div className="stat-icon"><Icon size={20} /></div></section>;
 }
 
-function AuthScreen({ onAuthenticated }) {
-  const [mode, setMode] = useState('login');
-  const [form, setForm] = useState({ name: '', email: 'receiver@foodconnect.demo', password: 'demo123', organizationName: '', organizationType: 'Community kitchen', address: '', role: 'receiver', newPassword: '' });
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const set = (key, value) => setForm({ ...form, [key]: value });
-  async function submit(event) {
-    event.preventDefault(); setError(''); setMessage(''); setLoading(true);
-    try {
-      const endpoint = mode === 'login' ? '/auth/login' : mode === 'register' ? '/auth/register' : '/auth/reset-password';
-      const body = mode === 'login' ? { email: form.email, password: form.password } : mode === 'register' ? form : { email: form.email, newPassword: form.newPassword };
-      const response = await fetch(`${apiUrl}${endpoint}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Unable to complete your request.');
-      if (mode === 'reset') { setMessage(data.message); setMode('login'); return; }
-      onAuthenticated(data);
-    } catch (requestError) { setError(requestError.message || 'The local API is unavailable. Start it with npm run server.'); } finally { setLoading(false); }
-  }
-  return <main className="auth-page"><section className="auth-intro"><div className="brand"><div className="brand-mark"><Leaf size={22} /></div><span>FoodConnect</span></div><div><p className="eyebrow">HYDERABAD FOOD REDISTRIBUTION</p><h1>Good food deserves a second destination.</h1><p>Coordinate local surplus-food pickups with verified community organizations.</p></div><div className="demo-accounts"><b>Demo accounts</b><span>Supplier: supplier@foodconnect.demo</span><span>Receiver: receiver@foodconnect.demo</span><span>Admin: admin@foodconnect.demo</span><small>Password: demo123</small></div></section><section className="auth-card"><div className="auth-tabs"><button className={mode === 'login' ? 'active' : ''} onClick={() => setMode('login')}>Log in</button><button className={mode === 'register' ? 'active' : ''} onClick={() => setMode('register')}>Register</button></div><h2>{mode === 'login' ? 'Welcome back' : mode === 'register' ? 'Create an organization account' : 'Reset password'}</h2><p>{mode === 'login' ? 'Use a seeded demo account or create a new pending organization.' : mode === 'register' ? 'New organizations begin pending verification.' : 'Demo password reset is available locally.'}</p><form onSubmit={submit} className="auth-form">{mode === 'register' && <><label>Contact name<input required value={form.name} onChange={(event) => set('name', event.target.value)} /></label><label>Organization name<input required value={form.organizationName} onChange={(event) => set('organizationName', event.target.value)} /></label><label>Organization type<input required value={form.organizationType} onChange={(event) => set('organizationType', event.target.value)} /></label><label>Address and location<input required value={form.address} onChange={(event) => set('address', event.target.value)} /></label><label>Account type<select value={form.role} onChange={(event) => set('role', event.target.value)}><option value="receiver">Receiver</option><option value="supplier">Supplier</option></select></label></>}<label>Email<input required type="email" value={form.email} onChange={(event) => set('email', event.target.value)} /></label>{mode !== 'reset' && <label>Password<input required type="password" minLength="6" value={form.password} onChange={(event) => set('password', event.target.value)} /></label>}{mode === 'reset' && <label>New password<input required type="password" minLength="6" value={form.newPassword} onChange={(event) => set('newPassword', event.target.value)} /></label>}{error && <div className="auth-error">{error}</div>}{message && <div className="auth-success">{message}</div>}<button className="primary-action auth-submit" disabled={loading}>{loading ? 'Please wait...' : mode === 'login' ? 'Log in' : mode === 'register' ? 'Register organization' : 'Reset password'}</button></form>{mode !== 'register' && <button className="auth-link" onClick={() => setMode(mode === 'reset' ? 'login' : 'reset')}>{mode === 'reset' ? 'Back to log in' : 'Forgot password?'}</button>}</section></main>;
-}
-
 function App() {
-  const [auth, setAuth] = useState(null);
   const [role, setRole] = useState('receiver');
   const [view, setView] = useState('overview');
   const [donations, setDonations] = useState(seededDonations);
@@ -75,8 +51,6 @@ function App() {
   const supplierDonations = donations.filter((donation) => donation.supplierId === supplier.id);
   const receiverReservations = reservations.filter((reservation) => reservation.receiverId === receiver.id);
   const supplierReservations = reservations.filter((reservation) => donations.find((donation) => donation.id === reservation.donationId)?.supplierId === supplier.id);
-
-  if (!auth) return <AuthScreen onAuthenticated={(session) => { setAuth(session); setRole(session.user.role); }} />;
 
   function maxReservable(donation) {
     const capacityByUnit = { meals: 60, packs: 20, trays: 10, kg: 15 };
@@ -161,7 +135,7 @@ function App() {
       <div className="sidebar-footer"><div className="demo-label">DEMO MODE</div><p>Hyderabad, India</p><span>Seeded local data</span></div>
     </aside>
     <main>
-      <header className="topbar"><div className="mobile-brand"><Leaf size={18} /> FoodConnect</div><div className="role-switcher" aria-label="Demo role switcher">{roles.map(({ id, label, icon: Icon }) => <button key={id} className={role === id ? 'selected' : ''} onClick={() => changeRole(id)}><Icon size={15} />{label}</button>)}</div><button className="profile-chip" onClick={() => { setAuth(null); setView('overview'); }}><span>{role === 'supplier' ? 'NK' : role === 'admin' ? 'FC' : 'AC'}</span><div><b>{auth.user.name}</b><small>Sign out</small></div></button></header>
+      <header className="topbar"><div className="mobile-brand"><Leaf size={18} /> FoodConnect</div><div className="role-switcher" aria-label="Demo role switcher">{roles.map(({ id, label, icon: Icon }) => <button key={id} className={role === id ? 'selected' : ''} onClick={() => changeRole(id)}><Icon size={15} />{label}</button>)}</div><div className="profile-chip"><span>{role === 'supplier' ? 'NK' : role === 'admin' ? 'FC' : 'AC'}</span><div><b>{role === 'admin' ? 'Platform admin' : profiles[role].contact}</b><small>{role === 'admin' ? 'FoodConnect' : profiles[role].name}</small></div></div></header>
       <div className="content">
         {notice && <div className="notice"><CheckCircle2 size={18} />{notice}<button onClick={() => setNotice('')}><X size={16} /></button></div>}
         <section className="intro"><div><p className="eyebrow">{role === 'admin' ? 'SUNDAY, 11 OCTOBER' : `${role === 'supplier' ? supplier.area : receiver.area}, HYDERABAD`}</p><h1>{title.heading}</h1><p>{title.copy}</p></div>{view === 'overview' && <button className="quiet-action" onClick={() => setView('pickups')}>View pickups <ArrowUpRight size={16} /></button>}</section>

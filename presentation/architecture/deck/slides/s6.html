@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s6 .zone { display: flex; flex-direction: column; }
+      #s6 .lede { margin-top: 14px; font-size: 44px; max-width: 1640px; }
+      #s6 .road { display: grid; grid-template-columns: 110px repeat(5, 1fr); column-gap: 22px; margin-top: 30px; }
+      #s6 .rail { grid-column: 2 / -1; height: 44px; }
+      #s6 .rowlab { display: flex; flex-direction: column; padding: 102px 0 0; }
+      #s6 .rowlab span { font: 700 var(--fs-label) / 1.2 var(--font-sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); display: flex; align-items: center; }
+      #s6 .rowlab .r1 { height: 160px; }
+      #s6 .rowlab .r2 { height: 84px; }
+      #s6 .rowlab .r3 { height: 170px; }
+      #s6 .rowlab .r4 { height: 120px; }
+
+      #s6 .ph { --c: var(--ink-3); --still: 0.5; border: 2px solid var(--c); border-radius: 16px; background: var(--paper); display: flex; flex-direction: column; padding: 16px 18px 18px; animation: s6-on 10s linear infinite; }
+      #s6 .ph.sup { --c: var(--accent-2); }
+      #s6 .ph.rec { --c: var(--wire); }
+      #s6 .ph.gov { --c: var(--ink-2); }
+      @keyframes s6-on {
+        /* lit for one card width (18.8% of the rail), off within the gap before the next card */
+        0%, 18.8% { background: color-mix(in srgb, var(--c) 11%, var(--paper)); box-shadow: 0 10px 26px color-mix(in srgb, var(--c) 24%, transparent); transform: translateY(-6px); }
+        19.4%, 100% { background: var(--paper); box-shadow: none; transform: none; }
+      }
+      #s6 .ph h3 { margin: 0; height: 80px; display: flex; flex-direction: column; gap: 6px; }
+      #s6 .ph h3 .t { display: flex; align-items: center; gap: 10px; font: 700 24px / 1.1 var(--font-sans); }
+      #s6 .ph h3 .badge { background: var(--c); }
+      #s6 .ph h3 .when { font: 600 17px / 1.1 var(--font-sans); color: var(--c); }
+      #s6 .ph h3 .chip { align-self: flex-start; }
+      #s6 .cell { border-top: 1.5px solid var(--hair); padding-top: 12px; display: flex; flex-direction: column; justify-content: center; }
+      #s6 .who { height: 160px; flex-direction: row; align-items: center; gap: 14px; font: 600 21px / 1.2 var(--font-sans); }
+      #s6 .who .pic { width: 72px; height: 72px; flex: none; color: var(--c); }
+      #s6 .why { height: 84px; font-size: 21px; color: var(--ink-2); line-height: 1.25; }
+      #s6 .build { height: 170px; flex-direction: row; flex-wrap: wrap; align-content: center; justify-content: flex-start; gap: 8px; }
+      #s6 .tech { font: 600 17px / 1 var(--font-sans); padding: 8px 11px; border-radius: 9px; background: var(--panel); border: 1.5px dashed var(--ink-3); color: var(--ink); white-space: nowrap; }
+      #s6 .tech.b { border: 1.5px solid var(--wire); background: color-mix(in srgb, var(--wire) 9%, var(--paper)); }
+      #s6 .gate { height: 120px; }
+      #s6 .gbox { position: relative; display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; background: var(--ink); color: var(--paper); font: 600 19px / 1.2 var(--font-sans); }
+      #s6 .gbox .ico { width: 24px; height: 24px; flex: none; color: var(--paper); }
+      #s6 .gbox.end { background: var(--panel-2); color: var(--ink); }
+      #s6 .gbox.end .ico { color: var(--ink); }
+      #s6 .foot { margin-top: auto; display: flex; align-items: center; gap: 26px; font-size: 19px; color: var(--ink-2); }
+      #s6 .foot .k { display: inline-flex; align-items: center; gap: 8px; }
+      #s6 .foot i { display: inline-block; width: 26px; height: 16px; border-radius: 5px; }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s6">
+      <div class="zone">
+        <div class="label">Execution roadmap and resources</div>
+        <div class="lede">From campus kitchens to city bodies, each phase opens only when the one before it hits its metric.</div>
+
+        <div class="road">
+          <div></div><div class="rail" id="rail"></div>
+
+          <div class="rowlab"><span class="r1">Who</span><span class="r2">Why</span><span class="r3">Build</span><span class="r4">Gate</span></div>
+
+          <div class="ph" id="p0">
+            <h3><span class="t">Today</span><span class="chip chip-built">built</span></h3>
+            <div class="cell who"><span class="pic" data-art="form"></span>Seeded web demo</div>
+            <div class="cell why"></div>
+            <div class="cell build"><span class="tech b">React</span><span class="tech b">Express</span><span class="tech b">Rule score</span></div>
+            <div class="cell gate"><div class="gbox">Pilot kitchen signs</div></div>
+          </div>
+          <div class="ph sup" id="p1">
+            <h3><span class="t"><span class="badge">1</span>Wedge</span><span class="when">Months 0 to 6</span></h3>
+            <div class="cell who"><span class="pic" data-art="tray"></span>Campus mess halls</div>
+            <div class="cell why">Cooks less, saves money</div>
+            <div class="cell build"><span class="tech">MongoDB</span><span class="tech">WhatsApp</span><span class="tech">Costing connector</span><span class="tech">Forecast baseline</span></div>
+            <div class="cell gate"><div class="gbox">Forecast beats baseline</div></div>
+          </div>
+          <div class="ph rec" id="p2">
+            <h3><span class="t"><span class="badge">2</span>Proof</span><span class="when">Months 6 to 12</span></h3>
+            <div class="cell who"><span class="pic" data-art="home"></span>Receiving NGOs</div>
+            <div class="cell why">Free, steady supply</div>
+            <div class="cell build"><span class="tech">Waste report</span><span class="tech">Impact report</span></div>
+            <div class="cell gate"><div class="gbox">Case study: kg, rupees, meals</div></div>
+          </div>
+          <div class="ph sup" id="p3">
+            <h3><span class="t"><span class="badge">3</span>Clusters</span><span class="when">After proof</span></h3>
+            <div class="cell who"><span class="pic" data-art="hall"></span>Caterers, wedding halls</div>
+            <div class="cell why">Pledge fee, ESG reports</div>
+            <div class="cell build"><span class="tech">Pledge</span><span class="tech">Safety clock</span><span class="tech">Cascade</span></div>
+            <div class="cell gate"><div class="gbox">Repeat pledges</div></div>
+          </div>
+          <div class="ph gov" id="p4">
+            <h3><span class="t"><span class="badge">4</span>City bodies</span></h3>
+            <div class="cell who"><span class="pic" data-art="city"></span>GHMC, mid-day meals</div>
+            <div class="cell why">SDG data, no cost</div>
+            <div class="cell build"><span class="tech">City export</span></div>
+            <div class="cell gate"><div class="gbox end">Zero-cost pilot</div></div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span class="k"><i style="border: 1.5px solid var(--wire); background: color-mix(in srgb, var(--wire) 9%, var(--paper))"></i>built</span>
+          <span class="k"><i style="border: 1.5px dashed var(--ink-3); background: var(--panel)"></i>designed</span>
+          <span>No fleet, no new software</span>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wirePts, flow, box, svg, railSync } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const cards = [0, 1, 2, 3, 4].map((i) => $("p" + i));
+        const first = box(cards[0], slide), last = box(cards[4], slide), rail = box($("rail"), slide);
+        const y = rail.y + rail.h / 2;
+        const p = wirePts(w, { x: first.x, y }, { x: last.x + last.w, y }, { shape: "straight", color: "var(--hair)", width: 3, dot: false });
+        for (const c of cards) {
+          const b = box(c, slide);
+          w.append(svg("circle", { cx: b.x + b.w / 2, cy: y, r: 6, fill: "var(--paper)", stroke: "var(--ink-3)", "stroke-width": 2 }));
+        }
+        flow(slide, p, { dur: 10, size: 22, still: 0.5 });
+        railSync(cards, slide, 10);
+        // gate arrows: each gate points into the next phase
+        for (let i = 0; i < 4; i++) {
+          const g = box(cards[i].querySelector(".gbox"), slide), n = box(cards[i + 1], slide);
+          const gy = g.y + g.h / 2;
+          wirePts(w, { x: g.x + g.w + 4, y: gy }, { x: n.x + 2, y: gy }, { shape: "straight", arrow: true, color: "var(--ink)", width: 2.5, to: "left" });
+        }
+      });
+    </script>
+  </body>
+</html>

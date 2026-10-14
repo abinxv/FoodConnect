@@ -1,0 +1,479 @@
+/* Stage, zone, and the shared vocabulary (label, chip, badge, node, readout, source, shot).
+   Slide-specific CSS goes in the slide file, scoped with the slide id (#s3 ...). */
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+b,
+strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ---- stage ---- */
+.slide {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+}
+body.single {
+  width: max-content;
+}
+body.transparent,
+body.transparent .slide {
+  background: transparent !important;
+}
+.slide > .chrome {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.slide > .band,
+.slide > .zone {
+  position: absolute;
+  z-index: 1;
+}
+.slide > .zone {
+  z-index: 2;
+}
+.slide.guides > .zone {
+  outline: 2px dashed rgb(255 0 128 / 0.7);
+}
+.slide.guides > .band {
+  outline: 2px dashed rgb(0 160 255 / 0.7);
+}
+.missing {
+  font-size: 28px;
+  color: var(--bad);
+}
+
+/* ---- overview page ---- */
+body.overview {
+  padding: 24px 32px;
+  background: #888;
+}
+.thumb {
+  margin: 0 0 28px;
+}
+.thumb figcaption {
+  font: 600 14px var(--font-sans);
+  margin-bottom: 6px;
+}
+.thumb figcaption a {
+  color: #111;
+}
+.thumb-frame {
+  width: calc(1920px * var(--thumb-scale, 0.5));
+  overflow: hidden;
+}
+.thumb-frame > .slide {
+  transform: scale(var(--thumb-scale, 0.5));
+  transform-origin: 0 0;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 0.3);
+}
+.thumb-frame {
+  height: calc(1080px * var(--thumb-scale, 0.5));
+}
+
+/* ---- vocabulary ---- */
+.label {
+  font: 700 var(--fs-label) / 1.2 var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--wire);
+}
+.lede {
+  font: 500 var(--fs-lede) / 1.25 var(--font-lede);
+  color: var(--ink);
+}
+.chip {
+  display: inline-block;
+  font: 600 13px / 1 var(--font-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1.4px solid currentColor;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.chip-measured,
+.chip-live {
+  color: var(--good);
+}
+.chip-built,
+.chip-costed,
+.chip-design {
+  color: var(--wire);
+}
+.chip-next,
+.chip-pending,
+.chip-tbd,
+.chip-proposed {
+  color: var(--warn);
+}
+.chip-simulated,
+.chip-assumed,
+.chip-estimate {
+  color: var(--ink-3);
+  border-style: dashed;
+}
+.badge {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  font: 700 13px / 1 var(--font-num);
+  box-shadow: 0 0 0 2px var(--paper);
+  flex: none;
+}
+.node {
+  display: inline-block;
+  padding: 9px 13px;
+  border-radius: 8px;
+  border: 1.5px solid var(--wire);
+  background: var(--paper);
+  font: 500 var(--fs-node) / 1.25 var(--font-sans);
+  color: var(--ink);
+  max-width: 260px;
+}
+.node.muted {
+  border-color: var(--hair);
+  background: var(--panel);
+  color: var(--ink-2);
+}
+.node.accent {
+  border-color: var(--accent-2);
+}
+.node.warn {
+  border-color: var(--warn);
+  border-style: dashed;
+}
+.node.bad {
+  border-color: var(--bad);
+}
+.readout .num {
+  font: 700 var(--fs-num) / 1 var(--font-num);
+  color: var(--ink);
+}
+.readout .unit {
+  font-size: 0.5em;
+  font-weight: 600;
+  margin-left: 4px;
+  color: var(--ink-2);
+}
+.readout .desc {
+  font-size: 14.5px;
+  color: var(--ink-2);
+  margin-top: 6px;
+}
+.source {
+  font: 400 var(--fs-caption) / 1.3 var(--font-sans);
+  color: var(--ink-3);
+}
+.shot {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1.5px solid var(--hair);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+.shot.phone {
+  border-radius: 26px;
+  box-shadow: 0 0 0 7px #0b0b0c, var(--shadow);
+}
+.shot-fig {
+  margin: 0;
+}
+.shot-fig > figcaption {
+  margin-top: 8px;
+}
+.rule {
+  height: 1px;
+  background: var(--hair);
+}
+
+/* ---- FoodConnect additions ---- */
+.lede {
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.18;
+}
+.chip {
+  font-size: 14px;
+  padding: 5px 10px;
+}
+.chip-tag {
+  color: var(--ink-3);
+}
+.badge {
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+}
+.node {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border-width: 2px;
+  max-width: 320px;
+}
+.node.supplier {
+  border-color: var(--accent-2);
+}
+.node.ai {
+  border-color: var(--ai);
+}
+.node.clock {
+  border-color: var(--clock);
+}
+.readout .desc {
+  font-size: 18px;
+}
+.photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--panel-2);
+}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.window-bar {
+  height: 28px;
+  background: var(--panel-2);
+  border-bottom: 1.5px solid var(--hair);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 12px;
+}
+.window-bar i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--hair);
+}
+.bubble {
+  max-width: 78%;
+  padding: 9px 13px;
+  border-radius: 14px;
+  font-size: 16px;
+  line-height: 1.3;
+  background: var(--paper);
+  border: 1.5px solid var(--hair);
+}
+.bubble.me {
+  align-self: flex-end;
+  background: color-mix(in srgb, var(--wire) 14%, var(--paper));
+  border-color: color-mix(in srgb, var(--wire) 40%, var(--paper));
+}
+
+/* ---- motion vocabulary: every animation loops; export freezes each at --still (0..1) ---- */
+.token {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--wire);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--wire) 22%, transparent);
+  offset-rotate: 0deg;
+  offset-anchor: 50% 50%;
+  z-index: 6;
+  pointer-events: none;
+  animation: flow var(--dur, 6s) linear infinite, flow-fade var(--dur, 6s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes flow {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+@keyframes flow-fade {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+.march {
+  stroke-dasharray: 7 9;
+  animation: march 1.2s linear infinite;
+}
+@keyframes march {
+  to { stroke-dashoffset: -16; }
+}
+.bar {
+  height: 12px;
+  border-radius: 6px;
+  background: var(--panel-2);
+  overflow: hidden;
+}
+.bar > span {
+  display: block;
+  height: 100%;
+  width: var(--v, 50%);
+  border-radius: 6px;
+  background: var(--wire);
+  transform-origin: 0 50%;
+  animation: bar-fill 7s cubic-bezier(0.3, 0, 0.2, 1) infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes bar-fill {
+  0% { transform: scaleX(0); }
+  30%, 92% { transform: scaleX(1); }
+  100% { transform: scaleX(0); }
+}
+.pulse {
+  animation: pulse 2.4s ease-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 35%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 16px transparent; }
+}
+@property --p {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+.clockring {
+  --size: 120px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(var(--clock) calc(var(--p) * 360deg), var(--panel-2) 0);
+  animation: clock-run 10s linear infinite;
+  --still: 0.35;
+}
+.clockring > div {
+  width: calc(var(--size) - 22px);
+  height: calc(var(--size) - 22px);
+  border-radius: 50%;
+  background: var(--paper);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font: 700 22px / 1.1 var(--font-num);
+}
+@keyframes clock-run {
+  from { --p: 1; }
+  to { --p: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-play-state: paused !important; }
+}
+
+.lede {
+  text-wrap: balance;
+}
+
+/* ---- line illustrations (lib/art.js) ---- */
+.art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.art-wave path {
+  stroke-width: 5;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: art-wave 1.1s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -0.23s);
+  d: path("M0 0");
+}
+.art-wave path:nth-child(1) { d: path("M98 70 v16"); }
+.art-wave path:nth-child(2) { d: path("M114 64 v28"); }
+.art-wave path:nth-child(3) { d: path("M130 70 v16"); }
+.art-wave path:nth-child(4) { d: path("M146 62 v32"); }
+.art-wave path:nth-child(5) { d: path("M162 68 v20"); }
+.art-wave path:nth-child(6) { d: path("M178 64 v28"); }
+.art-wave path:nth-child(7) { d: path("M194 72 v12"); }
+@keyframes art-wave {
+  from { transform: scaleY(0.35); }
+  to { transform: scaleY(1); }
+}
+.art-type path {
+  stroke-dasharray: 110;
+  animation: art-type 6s ease-out infinite;
+  animation-delay: calc(var(--i) * 0.5s);
+  --still: 0.7;
+}
+@keyframes art-type {
+  0% { stroke-dashoffset: 110; }
+  25%, 100% { stroke-dashoffset: 0; }
+}
+.art-spark {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: art-spark 2.4s ease-in-out infinite;
+}
+@keyframes art-spark {
+  0%, 100% { transform: scale(0.7) rotate(0deg); opacity: 0.6; }
+  50% { transform: scale(1.1) rotate(20deg); opacity: 1; }
+}
+.art-hand {
+  transform-origin: 110px 50px;
+  animation: art-hand 8s linear infinite;
+  --still: 0.12;
+}
+@keyframes art-hand {
+  to { transform: rotate(360deg); }
+}
+.art-dash {
+  animation: march 1.2s linear infinite;
+}
+.art-day {
+  animation: art-blink 2.4s ease-in-out infinite;
+  --still: 0.5;
+}
+@keyframes art-blink {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+/* ---- architecture deck additions ---- */
+/* status of a component: built (in the repo today) or designed (target architecture) */
+.chip-built {
+  color: var(--wire);
+}
+.chip-design {
+  color: var(--ink-3);
+  border-style: dashed;
+}
+/* component chip: solid green outline = built, dashed grey = designed */
+.tech {
+  display: inline-block;
+  font: 600 17px / 1 var(--font-sans);
+  padding: 8px 11px;
+  border-radius: 9px;
+  background: var(--panel);
+  border: 1.5px dashed var(--ink-3);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.tech.b {
+  border: 1.5px solid var(--wire);
+  background: color-mix(in srgb, var(--wire) 9%, var(--paper));
+}

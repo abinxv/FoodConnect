@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s4 .zone { display: flex; flex-direction: column; }
+      #s4 .lede { margin-top: 14px; font-size: 44px; max-width: 1640px; }
+      #s4 .main { display: grid; grid-template-columns: 540px 340px 1fr; column-gap: 120px; margin-top: 36px; align-items: start; }
+      #s4 .colhead { font: 700 var(--fs-label) / 1.2 var(--font-sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+      
+      /* the handover record */
+      #s4 .rec { border: 2px solid var(--wire); border-radius: 18px; background: var(--paper); box-shadow: var(--shadow); padding: 20px 24px; position: relative; z-index: 7; }
+      #s4 .rec .top { display: flex; align-items: center; justify-content: space-between; font: 700 23px / 1.1 var(--font-sans); }
+      #s4 .qty { display: grid; grid-template-columns: 120px 1fr 76px; align-items: center; gap: 14px; margin-top: 18px; font-size: 20px; color: var(--ink-2); }
+      #s4 .qty b { text-align: right; color: var(--ink); font-size: 21px; }
+      #s4 .qty .bar { height: 18px; border-radius: 9px; }
+      #s4 .qty .bar > span { border-radius: 9px; background: var(--ink-3); animation-duration: 8s; --still: 0.6; }
+      #s4 .qty.min .bar > span { background: var(--wire); }
+      #s4 .qty.min { color: var(--wire); font-weight: 600; }
+      #s4 .qty.min b { color: var(--wire); }
+      #s4 .count { margin-top: 18px; display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 12px; background: color-mix(in srgb, var(--wire) 10%, var(--paper)); font-size: 21px; }
+      #s4 .count .ico { width: 30px; height: 30px; color: var(--wire); flex: none; }
+      #s4 .count b { color: var(--wire); }
+      #s4 .proof { display: flex; gap: 22px; margin-top: 16px; font-size: 18px; color: var(--ink-2); }
+      #s4 .proof span { display: inline-flex; align-items: center; gap: 9px; }
+      #s4 .st { width: 15px; height: 15px; border-radius: 50%; flex: none; display: inline-block; }
+      #s4 .st.b { background: var(--wire); }
+      #s4 .st.d { border: 2px dashed var(--ink-3); }
+
+      #s4 .trail { margin-top: 22px; padding-top: 16px; border-top: 1.5px solid var(--hair); }
+      #s4 .tk { font: 700 var(--fs-label) / 1.2 var(--font-sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
+      #s4 .line { position: relative; height: 62px; margin: 14px 40px 0 40px; border-top: 3px solid var(--wire); }
+      #s4 .line span { position: absolute; left: var(--x); top: 18px; transform: translateX(-50%); font: 600 19px / 1 var(--font-sans); white-space: nowrap; }
+      #s4 .line span::before { content: ""; position: absolute; left: 50%; top: -27px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--paper); border: 3px solid var(--wire); }
+
+      /* which records count */
+      #s4 .rules { display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 7; }
+      #s4 .stat { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 12px; border: 2px solid var(--hair); background: var(--paper); font: 600 21px / 1.1 var(--font-sans); color: var(--ink-3); }
+      #s4 .stat .ico { width: 26px; height: 26px; flex: none; }
+      #s4 .stat.ok { border-color: var(--wire); color: var(--ink); }
+      #s4 .stat.ok .ico { color: var(--wire); }
+      #s4 .stat.no .ico { color: var(--bad); }
+      #s4 .stat.no { text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--bad) 60%, transparent); text-decoration-thickness: 2px; }
+      #s4 .note { margin-top: 8px; font-size: 18px; color: var(--ink-2); line-height: 1.3; }
+
+      /* reports */
+      #s4 .reps { display: flex; flex-direction: column; gap: 26px; }
+      #s4 .rep { display: flex; gap: 18px; align-items: center; padding: 22px 22px; border-radius: 16px; border: 2px solid var(--hair); background: var(--paper); position: relative; z-index: 7; }
+      #s4 .rep .ico { width: 56px; height: 56px; flex: none; color: var(--ink-2); }
+      #s4 .rep.sup { border-color: var(--accent-2); }
+      #s4 .rep.sup .ico { color: var(--accent-2); }
+      #s4 .rep.rec2 { border-color: var(--wire); }
+      #s4 .rep.rec2 .ico { color: var(--wire); }
+      #s4 .rep h3 { margin: 0; display: flex; align-items: center; gap: 12px; font: 700 22px / 1.15 var(--font-sans); }
+      #s4 .rep h3 .chip { margin-left: auto; }
+      #s4 .rep p { margin: 4px 0 0; font-size: 19px; color: var(--ink-2); line-height: 1.3; }
+      #s4 .rep > div { flex: 1; }
+      #s4 .sdg { display: inline-flex; gap: 8px; margin-top: 6px; }
+      #s4 .sdg span { font: 700 16px / 1 var(--font-sans); padding: 6px 9px; border-radius: 7px; background: var(--ink); color: var(--paper); }
+
+      /* the two measurements */
+      #s4 .methods { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+      #s4 .method { display: flex; align-items: center; gap: 18px; padding: 24px 26px; border-radius: 16px; background: var(--panel); }
+      #s4 .method .k { font: 700 var(--fs-label) / 1.2 var(--font-sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); width: 150px; flex: none; }
+      #s4 .method .f { font: 600 23px / 1.25 var(--font-sans); }
+      #s4 .method .chip { margin-left: auto; }
+      #s4 .src { margin-top: 12px; }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s4">
+      <div class="zone">
+        <div class="label">Impact measurement and accountability</div>
+        <div class="lede">Impact counts only food both sides confirm at handover, so every kilogram traces back to one record.</div>
+
+        <div class="main">
+          <div>
+            <div class="colhead">Handover record</div>
+            <div class="rec" id="rec">
+              <div class="top"><span>Cooked meals</span><span class="chip chip-tag">seeded demo</span></div>
+              <div class="qty"><span>Reserved</span><div class="bar"><span style="--v: 100%"></span></div><b>28 kg</b></div>
+              <div class="qty"><span>Collected</span><div class="bar"><span style="--v: 96.4%; --delay: 0.3s"></span></div><b>27 kg</b></div>
+              <div class="qty min"><span>Received</span><div class="bar"><span style="--v: 92.9%; --delay: 0.6s"></span></div><b>26 kg</b></div>
+              <div class="count pulse" style="color: var(--wire)"><span class="ico" data-art="tickmark"></span><span style="color: var(--ink)">Counted: <b>26 kg</b>, the smallest</span></div>
+              <div class="proof"><span><i class="st b"></i>Both sides confirm</span><span><i class="st d"></i>Tray photos</span></div>
+              <div class="trail"><div class="tk">Timestamped</div><div class="line" id="line"><span style="--x: 0%">10:20 am</span><span style="--x: 50%">5:40 pm</span><span style="--x: 100%">6:15 pm</span></div></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="colhead">What counts <span class="chip chip-built">built</span></div>
+            <div class="rules" id="rules">
+              <div class="stat ok" id="ok"><span class="ico" data-art="tickmark"></span>Completed</div>
+              <div class="stat no"><span class="ico" data-art="cross"></span>Disputed</div>
+              <div class="stat no"><span class="ico" data-art="cross"></span>Cancelled</div>
+              <div class="stat no"><span class="ico" data-art="cross"></span>Expired</div>
+              <div class="stat no"><span class="ico" data-art="cross"></span>Pending</div>
+              <div class="note">Meals estimated at 0.5 kg each</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="colhead">Reports</div>
+            <div class="reps">
+              <div class="rep sup" id="r1"><span class="ico" data-art="chart"></span><div><h3>Kitchen waste report<span class="chip chip-design">designed</span></h3><p>Kg not cooked, rupees saved</p></div></div>
+              <div class="rep rec2" id="r2"><span class="ico" data-art="audit"></span><div><h3>Sponsor impact report<span class="chip chip-built">built</span></h3><p>Kg received, meals</p></div></div>
+              <div class="rep" id="r3"><span class="ico" data-art="city"></span><div><h3>City SDG export<span class="chip chip-design">designed</span></h3><div class="sdg"><span>SDG 12.3 food waste</span><span>SDG 2.1 access to food</span></div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="methods">
+          <div class="method"><span class="k">Redistributed</span><span class="f">Smallest of reserved, collected, received</span><span class="chip chip-built">built</span></div>
+          <div class="method"><span class="k">Prevented</span><span class="f">Baseline forecast minus cooked</span><span class="chip chip-design">designed</span></div>
+        </div>
+        <div class="source src" style="margin-top: auto">Record: seeded demo. SDG targets: sdgs.un.org/goals</div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wire, flow } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const g = "var(--wire)";
+        const a = wire(w, $("rec"), $("ok"), { arrow: true, color: g, width: 2.5, from: "right", to: "left", fromOffset: -120 });
+        flow(slide, a, { dur: 4, color: g, still: 0.5 });
+        ["r1", "r2", "r3"].forEach((id, i) => {
+          const c = i === 0 ? "var(--accent-2)" : i === 1 ? g : "var(--ink-3)";
+          const p = wire(w, $("ok"), $(id), { arrow: true, color: c, width: 2.5, from: "right", to: "left" });
+          flow(slide, p, { dur: 4, color: c, still: 0.3 + i * 0.2, phase: i * 0.8 });
+        });
+      });
+    </script>
+  </body>
+</html>

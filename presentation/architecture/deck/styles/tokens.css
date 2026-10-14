@@ -1,0 +1,62 @@
+/* Design tokens. Every colour on every slide comes from here; each colour has ONE meaning,
+   written next to it; do not add a colour without adding its meaning.
+   Direction A (default) and direction B ([data-palette="b"]) are both on the style board. */
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  --font-sans: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif; /* everything */
+  --font-lede: var(--font-sans);
+  --font-num: var(--font-sans); /* tabular numerals */
+
+  /* type scale in slide px (1920 wide stage: 2 px = 1 pt). Sized for a projected live pitch. */
+  --fs-lede: 50px;
+  --fs-body: 22px;
+  --fs-node: 20px;
+  --fs-label: 17px;
+  --fs-caption: 15px;
+  --fs-num: 56px;
+}
+
+/* direction A: warm paper, green food, orange supplier */
+:root,
+[data-theme="light"] {
+  --paper: #fbf8f2; /* slide background */
+  --panel: #f3eee3; /* cards, lanes */
+  --panel-2: #e9e2d3; /* nested panels, bar tracks */
+  --hair: #d9d0bd; /* hairlines, borders */
+  --ink: #1d2a26; /* text */
+  --ink-2: #44524c; /* secondary text */
+  --ink-3: #6b7a74; /* captions, muted, the old way */
+  --wire: #15826b; /* food in motion and receivers; wires, flow tokens, section labels */
+  --accent-2: #d95836; /* suppliers and surplus */
+  --clock: #c98a12; /* time: the safe-to-eat clock, deadlines */
+  --ai: #5b5bd6; /* a step done by AI */
+  --bad: #b3402e; /* expired, excluded, the bin */
+  --good: var(--wire);
+  --warn: var(--clock);
+  --shadow: 0 1px 2px rgb(40 30 10 / 0.06), 0 6px 20px rgb(40 30 10 / 0.08);
+}
+
+/* direction B: white paper, navy ink, saffron food, teal receiver */
+:root[data-palette="b"] {
+  --paper: #ffffff;
+  --panel: #f2f5f8;
+  --panel-2: #e3e9ef;
+  --hair: #cdd6e0;
+  --ink: #14213d;
+  --ink-2: #3b4a63;
+  --ink-3: #6a778c;
+  --wire: #0f766e;
+  --accent-2: #e8590c;
+  --clock: #b7791f;
+  --ai: #6d4bd8;
+  --bad: #c0392b;
+  --shadow: 0 1px 2px rgb(20 33 61 / 0.06), 0 6px 20px rgb(20 33 61 / 0.08);
+}

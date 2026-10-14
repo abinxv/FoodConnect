@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s2 .zone { display: flex; flex-direction: column; }
+      #s2 .head { display: flex; align-items: center; gap: 16px; }
+      #s2 .lede { margin-top: 14px; font-size: 44px; max-width: 1640px; }
+      #s2 .main { display: grid; grid-template-columns: 320px 1fr 450px; column-gap: 96px; margin-top: 38px; flex: 1; min-height: 0; }
+
+      /* inputs */
+      #s2 .col { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+      #s2 .colhead { font: 700 var(--fs-label) / 1.2 var(--font-sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
+      #s2 .src { display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 14px; background: var(--paper); border: 2px solid var(--hair); position: relative; z-index: 7; }
+      #s2 .src.own { border-color: var(--accent-2); }
+      #s2 .src .ico { width: 46px; height: 46px; flex: none; color: var(--ink-3); }
+      #s2 .src.own .ico { color: var(--accent-2); }
+      #s2 .src b { display: block; font-size: 21px; line-height: 1.2; }
+      #s2 .src span { display: block; font-size: 17px; color: var(--ink-2); margin-top: 2px; }
+
+      /* engine */
+      #s2 .engine { border: 2px solid var(--ai); border-radius: 20px; background: color-mix(in srgb, var(--ai) 4%, var(--paper)); padding: 20px 26px 22px; display: flex; flex-direction: column; position: relative; z-index: 3; }
+      #s2 .engine .top { display: flex; align-items: center; justify-content: space-between; }
+      #s2 .engine .top b { font: 700 24px/1.1 var(--font-sans); color: var(--ai); }
+      #s2 .stages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px; margin-top: 18px; }
+      #s2 .stage { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; border: 2px solid var(--hair); background: var(--paper); font: 600 19px/1.15 var(--font-sans); position: relative; z-index: 7; }
+      #s2 .stage.ml { border-color: var(--ai); color: var(--ai); }
+      #s2 .stage .badge { width: 26px; height: 26px; font-size: 14px; }
+      #s2 .stage.ml .badge { background: var(--ai); }
+      #s2 .stage-on { animation: s2-stage 8s linear infinite; animation-delay: calc(var(--i) * 2s); --still: 0.1; }
+      @keyframes s2-stage { 0%, 22% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--ai) 22%, transparent); } 25%, 100% { box-shadow: none; } }
+
+      #s2 .chart { position: relative; margin: 22px auto 0; width: 700px; height: 400px; }
+      #s2 .chart svg { width: 100%; height: 100%; overflow: visible; }
+      #s2 .tag { position: absolute; font-size: 17px; line-height: 1.2; white-space: nowrap; }
+      #s2 .lband { animation: art-blink 3s ease-in-out infinite; --still: 0.5; }
+
+      #s2 .stagesw { display: grid; grid-template-columns: 1fr 64px 1fr; align-items: center; margin-top: 22px; }
+      #s2 .model { border-radius: 12px; padding: 10px 14px; border: 2px solid var(--hair); background: var(--paper); font-size: 18px; line-height: 1.25; color: var(--ink-2); }
+      #s2 .model.ml { border-color: var(--ai); }
+      #s2 .model b { display: block; font-size: 15px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 3px; }
+      #s2 .model.ml b { color: var(--ai); }
+      #s2 .gate { text-align: center; font-size: 15px; line-height: 1.15; color: var(--ink-3); }
+
+      /* outputs */
+      #s2 .out { border-radius: 16px; background: var(--paper); border: 2px solid var(--hair); padding: 16px 20px; position: relative; z-index: 7; }
+      #s2 .out.cook { border-color: var(--accent-2); }
+      #s2 .out.match { border-color: var(--wire); }
+      #s2 .out h3 { margin: 0; display: flex; align-items: center; gap: 12px; font: 700 22px/1.15 var(--font-sans); }
+      #s2 .out h3 .ico { width: 34px; height: 34px; flex: none; }
+      #s2 .out h3 .chip { margin-left: auto; }
+      #s2 .out p { margin: 8px 0 0; font-size: 18px; color: var(--ink-2); line-height: 1.3; }
+      #s2 .dish { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 4px 12px; margin-top: 10px; font-size: 17px; color: var(--ink-2); }
+      #s2 .bars { display: flex; flex-direction: column; gap: 4px; }
+      #s2 .bars i { display: block; height: 10px; border-radius: 5px; }
+      #s2 .bars .usual { background: var(--panel-2); }
+      #s2 .bars .plan { background: var(--accent-2); width: var(--w); animation: s2-plan 8s cubic-bezier(0.3, 0, 0.2, 1) infinite; transform-origin: 0 50%; --still: 0.6; }
+      @keyframes s2-plan { 0% { transform: scaleX(1.18); } 25%, 92% { transform: scaleX(1); } 100% { transform: scaleX(1.18); } }
+      #s2 .key { display: flex; gap: 16px; margin-top: 10px; font-size: 15px; color: var(--ink-3); }
+      #s2 .key i { display: inline-block; width: 18px; height: 8px; border-radius: 4px; margin-right: 6px; vertical-align: middle; }
+      #s2 .ok { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: 18px; color: var(--ink-2); }
+      #s2 .ok .ico { width: 24px; height: 24px; color: var(--accent-2); flex: none; }
+
+      /* feedback strip */
+      #s2 .loopstrip { display: grid; grid-template-columns: 320px 1fr 450px; column-gap: 96px; align-items: center; margin-top: 26px; }
+      #s2 .loopstrip .fb { grid-column: 2; justify-self: center; }
+      #s2 .fb { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 12px; border: 2px dashed var(--ink-3); background: var(--paper); font-size: 19px; position: relative; z-index: 7; }
+      #s2 .fb .ico { width: 30px; height: 30px; color: var(--ink-3); }
+      #s2 .metric { font-size: 17px; color: var(--ink-2); }
+      #s2 .metric b { color: var(--ink); }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s2">
+      <div class="zone">
+        <div class="head"><div class="label">Prevention engine</div><span class="chip chip-design">designed</span></div>
+        <div class="lede">Each kitchen's own records forecast demand per dish, so it cooks less and the likely leftover is matched before service ends.</div>
+
+        <div class="main">
+          <div class="col">
+            <div class="colhead">Inputs</div>
+            <div class="src own" id="in1"><span class="ico" data-art="tray"></span><div><b>Costing and inventory</b><span>Sales, production, waste</span></div></div>
+            <div class="src own" id="in2"><span class="ico" data-art="guests"></span><div><b>Bookings and pledges</b><span>Date, covers, menu</span></div></div>
+            <div class="src" id="in3"><span class="ico" data-art="thermo"></span><div><b>Weather</b></div></div>
+            <div class="src" id="in4"><span class="ico" data-art="calendar"></span><div><b>Calendar</b><span>Festivals, exams</span></div></div>
+          </div>
+
+          <div class="engine" id="engine">
+            <div class="top"><b>Forecast service</b><span class="chip chip-tag">Python, FastAPI</span></div>
+            <div class="stages">
+              <div class="stage stage-on" id="st1" style="--i: 0"><span class="badge">1</span>Ingest</div>
+              <div class="stage stage-on" id="st2" style="--i: 1"><span class="badge">2</span>History</div>
+              <div class="stage ml stage-on" id="st3" style="--i: 2"><span class="badge">3</span>Forecast</div>
+              <div class="stage stage-on" id="st4" style="--i: 3"><span class="badge">4</span>Plan</div>
+            </div>
+            <div class="chart" id="chart">
+              <svg viewBox="0 0 700 400" id="curve" data-lint="off"></svg>
+              <div class="tag" style="left: 196px; top: 96px; color: var(--ai)">Likely demand</div>
+              <div class="tag" id="tcook" style="left: 424px; top: 4px; color: var(--accent-2)"><b>Cook to here</b></div>
+              <div class="tag" style="left: 424px; top: 34px; color: var(--ink-3)">running short costs more<br />than a leftover tray</div>
+              <div class="tag" style="left: 424px; top: 92px; color: var(--ink)">Guardrail: <b>stock-outs</b> must not rise</div>
+              <div class="tag" id="tleft" style="left: 306px; top: 292px; color: var(--wire)"><b>Likely<br />leftover</b></div>
+              <div class="tag" style="right: 0; top: 372px; color: var(--ink-3)">plates →</div>
+            </div>
+            <div class="stagesw">
+              <div class="model"><b>Day one</b>Weekday average × booked covers</div>
+              <div class="gate" id="gate">→</div>
+              <div class="model ml"><b>Once it wins</b>Gradient-boosted quantile model</div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="colhead">Outputs</div>
+            <div class="out cook" id="out1">
+              <h3><span class="ico" data-art="form" style="color: var(--accent-2)"></span>Prep sheet<span class="chip chip-tag">sample</span></h3>
+              <div class="dish"><span>Biryani</span><div class="bars"><i class="usual"></i><i class="plan" style="--w: 78%"></i></div></div>
+              <div class="dish"><span>Dal</span><div class="bars"><i class="usual"></i><i class="plan" style="--w: 86%"></i></div></div>
+              <div class="key"><span><i style="background: var(--panel-2)"></i>usual</span><span><i style="background: var(--accent-2)"></i>planned</span></div>
+              <div class="ok"><span class="ico" data-art="tickmark"></span>Manager accepts or overrides</div>
+            </div>
+            <div class="out match" id="out2">
+              <h3><span class="ico" data-art="home" style="color: var(--wire)"></span>Pre-match<span class="chip chip-built">built score</span></h3>
+              <p>A receiver is booked before service ends</p>
+            </div>
+            <div class="out" id="out3">
+              <h3><span class="ico" data-art="audit" style="color: var(--ink-2)"></span>Waste report</h3>
+              <p>Kg not cooked, rupees saved</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="loopstrip">
+          <div class="fb" id="fb"><span class="ico" data-art="loop"></span>Served and leftover update history</div>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide, layer, wire, wirePts, flow, box, svg, arrowHead } from "../lib/deck.js";
+      import { art, mount } from "../lib/art.js";
+
+      // demand curve: a bell drawn, not data. Median at x=300, the cook line at the upper quantile.
+      const W = 700, base = 360, top = 130, mu = 290, sd = 92, q = 410;
+      const y = (x) => base - (base - top) * Math.exp(-((x - mu) ** 2) / (2 * sd * sd));
+      const pts = []; for (let x = 10; x <= 690; x += 5) pts.push([x, y(x)]);
+      const line = "M" + pts.map((p) => p.join(",")).join(" L");
+      const area = (a, b) => { const s = pts.filter(([x]) => x >= a && x <= b); return `M${a},${base} L${s.map((p) => p.join(",")).join(" L")} L${b},${base} Z`; };
+      document.getElementById("curve").innerHTML = `
+        <path d="M10 ${base} H690" stroke="var(--hair)" stroke-width="2"/>
+        <path class="lband" d="${area(mu, q)}" fill="color-mix(in srgb, var(--wire) 26%, transparent)"/>
+        <path d="${area(q, 690)}" fill="color-mix(in srgb, var(--ink-3) 14%, transparent)"/>
+        <path d="${line}" fill="none" stroke="var(--ai)" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M${mu} ${y(mu)} V${base}" stroke="var(--ai)" stroke-width="2.5" stroke-dasharray="6 7"/>
+        <path id="cookline" d="M${q} 32 V${base}" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/>`;
+
+      mount();
+      slide(async ({ slide }) => {
+        const $ = (id) => document.getElementById(id);
+        const w = layer(slide);
+        const sup = "var(--accent-2)", ai = "var(--ai)", grey = "var(--ink-3)", green = "var(--wire)";
+        // inputs into Ingest
+        ["in1", "in2", "in3", "in4"].forEach((id, i) => {
+          const c = i < 2 ? sup : grey;
+          const p = wire(w, $(id), $("st1"), { to: "left", toOffset: -12 + i * 8, arrow: i === 3, dot: false, color: c, width: 2.5 });
+          flow(slide, p, { dur: 4, color: c, still: 0.3 + i * 0.12, phase: i * 0.6 });
+        });
+        // stage to stage
+        for (let i = 1; i < 4; i++) wire(w, $(`st${i}`), $(`st${i + 1}`), { arrow: true, color: ai, width: 2.5, shape: "straight" });
+        // cook line to the prep sheet, leftover band to pre-match, engine to the report
+        const cl = box($("tcook"), slide), o1 = box($("out1"), slide), o2 = box($("out2"), slide), o3 = box($("out3"), slide);
+        const a = wirePts(w, { x: cl.x + cl.w + 10, y: cl.y + cl.h / 2 }, { x: o1.x, y: o1.y + o1.h / 2 }, { arrow: true, color: sup, width: 2.5, to: "left" });
+        flow(slide, a, { dur: 4, color: sup, still: 0.6 });
+        const tl = box($("tleft"), slide), ln = box($("cookline"), slide);
+        const b = wirePts(w, { x: ln.x + 4, y: tl.y + tl.h / 2 }, { x: o2.x, y: o2.y + o2.h / 2 }, { arrow: true, color: green, width: 2.5, to: "left" });
+        flow(slide, b, { dur: 4, color: green, still: 0.45 });
+        const eg = box($("engine"), slide);
+        wirePts(w, { x: eg.x + eg.w, y: o3.y + o3.h / 2 }, { x: o3.x, y: o3.y + o3.h / 2 }, { arrow: true, color: grey, width: 2.5, shape: "straight", to: "left" });
+        // feedback: from the report down and left into the strip, then up into the engine
+        const fb = box($("fb"), slide);
+        const fy = fb.y + fb.h / 2, ox = o3.x + o3.w / 2;
+        const r = svg("path", { d: `M${ox},${o3.y + o3.h} V${fy - 14} Q${ox},${fy} ${ox - 14},${fy} H${fb.x + fb.w}`, fill: "none", stroke: grey, "stroke-width": 2.5, class: "march" });
+        w.append(r, arrowHead({ x: ox, y: fy }, { x: fb.x + fb.w, y: fy }, grey, "right"));
+        const back = wirePts(w, { x: fb.x + fb.w / 2, y: fb.y }, { x: fb.x + fb.w / 2, y: eg.y + eg.h }, { arrow: true, color: grey, width: 2.5, shape: "straight", to: "bottom" });
+        back.classList.add("march");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "id": "deck-08bfad74",
+  "title": "FoodConnect architecture",
+  "method": "simple",
+  "port": 5300,
+  "canvas": {
+    "width": 1920,
+    "height": 1080
+  },
+  "zone": {
+    "x": 88,
+    "y": 72,
+    "w": 1744,
+    "h": 936
+  },
+  "band": {
+    "x": 0,
+    "y": 0,
+    "w": 1920,
+    "h": 1080
+  },
+  "theme": "light",
+  "slides": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7"
+  ],
+  "title_slides": [],
+  "words_per_slide": [
+    80,
+    120
+  ],
+  "type_floor_px": 14,
+  "english_style": "indian",
+  "img_dir": "img",
+  "chrome_dir": "chrome",
+  "template": null
+}

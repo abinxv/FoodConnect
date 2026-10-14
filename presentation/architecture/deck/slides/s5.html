@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles/tokens.css" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <style>
+      #s5 .zone { display: flex; flex-direction: column; }
+      #s5 .lede { margin-top: 14px; font-size: 44px; max-width: 1600px; }
+      #s5 .main { display: grid; grid-template-columns: 470px 1fr; column-gap: 84px; margin-top: 34px; }
+
+      /* matrix: x = likelihood, y = impact; team's assessment, before and after controls */
+      #s5 .mx { position: relative; }
+      #s5 .grid { position: relative; width: 420px; height: 420px; margin-left: 40px; border-left: 2px solid var(--ink-3); border-bottom: 2px solid var(--ink-3);
+        background: linear-gradient(to right, transparent 50%, color-mix(in srgb, var(--bad) 7%, transparent) 50%) top / 100% 50% no-repeat, var(--panel); border-radius: 0 12px 0 0; }
+      #s5 .grid::before, #s5 .grid::after { content: ""; position: absolute; background: var(--hair); }
+      #s5 .grid::before { left: 50%; top: 0; bottom: 0; width: 1.5px; }
+      #s5 .grid::after { top: 50%; left: 0; right: 0; height: 1.5px; }
+      #s5 .ax { position: absolute; font: 600 var(--fs-label) / 1 var(--font-sans); color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; }
+      #s5 .ax.x { left: 40px; width: 420px; text-align: center; top: 432px; }
+      #s5 .ax.y { left: -192px; top: 196px; width: 420px; text-align: center; transform: rotate(-90deg); }
+      #s5 .ghost, #s5 .dot { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; display: grid; place-items: center; font: 700 16px / 1 var(--font-num); z-index: 3; }
+      #s5 .ghost { left: var(--x0); top: var(--y0); border: 2px dashed var(--ink-3); color: var(--ink-3); background: var(--paper); }
+      #s5 .dot { background: var(--ink); color: var(--paper); box-shadow: 0 0 0 3px var(--paper); z-index: 4; animation: s5-move 8s cubic-bezier(0.5, 0, 0.2, 1) infinite; animation-delay: calc(var(--i) * 0.25s); --still: 0.9; }
+      @keyframes s5-move { 0%, 18% { left: var(--x0); top: var(--y0); } 58%, 96% { left: var(--x1); top: var(--y1); } 100% { left: var(--x0); top: var(--y0); } }
+      #s5 .mkey { display: flex; gap: 22px; margin: 50px 0 0 40px; font-size: 17px; color: var(--ink-2); align-items: center; }
+      #s5 .mkey i { display: inline-block; width: 18px; height: 18px; border-radius: 50%; margin-right: 8px; vertical-align: -3px; }
+
+      /* risk rows */
+      #s5 .rows { display: flex; flex-direction: column; gap: 12px; }
+      #s5 .rowhead { display: grid; grid-template-columns: 34px 300px 1fr; column-gap: 18px; font: 700 var(--fs-label) / 1.2 var(--font-sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
+      #s5 .risk { display: grid; grid-template-columns: 34px 300px 1fr; column-gap: 18px; align-items: center; padding: 19px 18px 19px 0; border-bottom: 1.5px solid var(--hair); }
+      #s5 .risk .badge { width: 34px; height: 34px; font-size: 16px; }
+      #s5 .risk .name { display: flex; align-items: center; gap: 14px; font: 600 22px / 1.2 var(--font-sans); }
+      #s5 .risk .name .ico { width: 40px; height: 40px; flex: none; color: var(--ink-2); }
+      #s5 .ctl { display: flex; flex-wrap: wrap; gap: 8px 26px; font-size: 21px; color: var(--ink); }
+      #s5 .ctl span { display: inline-flex; align-items: center; gap: 10px; }
+      #s5 .st { width: 16px; height: 16px; border-radius: 50%; flex: none; }
+      #s5 .st.b { background: var(--wire); }
+      #s5 .st.d { border: 2px dashed var(--ink-3); }
+      #s5 .risk.lit { animation: s5-row 8s linear infinite; animation-delay: calc(var(--i) * 0.25s); --still: 0.1; }
+      @keyframes s5-row { 0%, 18% { background: transparent; } 30%, 50% { background: color-mix(in srgb, var(--wire) 7%, transparent); } 62%, 100% { background: transparent; } }
+
+      /* viability band */
+      #s5 .via { margin-top: auto; display: grid; grid-template-columns: 250px repeat(3, 1fr) 360px; gap: 22px; align-items: stretch; background: var(--panel); border-radius: 18px; padding: 20px 24px; }
+      #s5 .via .lab { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+      #s5 .via .lab b { font: 700 24px / 1.15 var(--font-sans); }
+      #s5 .via .lab span { font-size: 17px; color: var(--ink-2); line-height: 1.3; }
+      #s5 .pay { background: var(--paper); border: 2px solid var(--hair); border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; }
+      #s5 .pay .ico { width: 62px; height: 52px; flex: none; color: var(--accent-2); }
+      #s5 .pay b { display: block; font-size: 20px; line-height: 1.2; }
+      #s5 .pay span { display: block; font-size: 17px; color: var(--ink-2); line-height: 1.25; }
+      #s5 .trend { position: relative; }
+      #s5 .trend svg { width: 100%; height: 100%; overflow: visible; }
+      #s5 .trend .t { position: absolute; font-size: 17px; font-weight: 600; white-space: nowrap; }
+      #s5 .drawline { stroke-dasharray: 420; animation: s5-draw 8s ease-out infinite; --still: 0.9; }
+      @keyframes s5-draw { 0% { stroke-dashoffset: 420; } 45%, 100% { stroke-dashoffset: 0; } }
+    </style>
+  </head>
+  <body>
+    <main class="slide" id="s5">
+      <div class="zone">
+        <div class="label">Risk management and long-term viability</div>
+        <div class="lede">Each major risk has a control inside the system, and income does not depend on how much food is wasted.</div>
+
+        <div class="main">
+          <div class="mx">
+            <div class="grid" id="grid">
+              <!-- positions are the team's assessment: x = likelihood, y = impact (top = high) -->
+              <div class="ghost" style="--x0: 55%; --y0: 8%">1</div><div class="dot" style="--i: 0; --x0: 55%; --y0: 8%; --x1: 18%; --y1: 12%">1</div>
+              <div class="ghost" style="--x0: 62%; --y0: 40%">2</div><div class="dot" style="--i: 1; --x0: 62%; --y0: 40%; --x1: 30%; --y1: 56%">2</div>
+              <div class="ghost" style="--x0: 88%; --y0: 46%">3</div><div class="dot" style="--i: 2; --x0: 88%; --y0: 46%; --x1: 42%; --y1: 70%">3</div>
+              <div class="ghost" style="--x0: 40%; --y0: 24%">4</div><div class="dot" style="--i: 3; --x0: 40%; --y0: 24%; --x1: 12%; --y1: 36%">4</div>
+              <div class="ghost" style="--x0: 82%; --y0: 16%">5</div><div class="dot" style="--i: 4; --x0: 82%; --y0: 16%; --x1: 54%; --y1: 27%">5</div>
+              <div class="ghost" style="--x0: 30%; --y0: 34%">6</div><div class="dot" style="--i: 5; --x0: 30%; --y0: 34%; --x1: 14%; --y1: 66%">6</div>
+            </div>
+            <div class="ax x">Likelihood →</div>
+            <div class="ax y">Impact →</div>
+            <div class="mkey"><span><i style="border: 2px dashed var(--ink-3)"></i>before</span><span><i style="background: var(--ink)"></i>after controls</span><span class="source">team's assessment</span></div>
+          </div>
+
+          <div class="rows">
+            <div class="rowhead"><span></span><span>Risk</span><span>Control &nbsp;<i class="st b" style="display: inline-block; vertical-align: -2px"></i> built &nbsp;<i class="st d" style="display: inline-block; vertical-align: -2px"></i> designed</span></div>
+            <div class="risk lit" style="--i: 0"><span class="badge">1</span><span class="name"><span class="ico" data-art="alert" style="color: var(--bad)"></span>Unsafe food</span>
+              <div class="ctl"><span><i class="st b"></i>Allergen, storage rules</span><span><i class="st d"></i>Safety clock expires listing</span></div></div>
+            <div class="risk lit" style="--i: 1"><span class="badge">2</span><span class="name"><span class="ico" data-art="plate"></span>Kitchen runs short</span>
+              <div class="ctl"><span><i class="st d"></i>Cook above median</span><span><i class="st d"></i>Manager overrides</span></div></div>
+            <div class="risk lit" style="--i: 2"><span class="badge">3</span><span class="name"><span class="ico" data-art="stopwatch"></span>Nobody collects</span>
+              <div class="ctl"><span><i class="st b"></i>Pre-matched receiver</span><span><i class="st d"></i>Waitlist, feed, biogas</span></div></div>
+            <div class="risk lit" style="--i: 3"><span class="badge">4</span><span class="name"><span class="ico" data-art="idcard"></span>Fake receiver</span>
+              <div class="ctl"><span><i class="st b"></i>Verified receivers only</span><span><i class="st d"></i>Limits rise with handovers</span></div></div>
+            <div class="risk lit" style="--i: 4"><span class="badge">5</span><span class="name"><span class="ico" data-art="form"></span>Low adoption</span>
+              <div class="ctl"><span><i class="st d"></i>Runs in their software, WhatsApp</span></div></div>
+            <div class="risk lit" style="--i: 5"><span class="badge">6</span><span class="name"><span class="ico" data-art="lock"></span>Sales data leaks</span>
+              <div class="ctl"><span><i class="st d"></i>Per-kitchen data, totals-only reports</span></div></div>
+          </div>
+        </div>
+
+        <div class="via">
+          <div class="lab"><b>Long-term viability</b><span>No fleet, no hardware</span></div>
+          <div class="pay"><span class="ico" data-art="chart"></span><div><b>Kitchens</b><span>Waste analytics</span></div></div>
+          <div class="pay"><span class="ico" data-art="hall"></span><div><b>Hosts</b><span>Pledge package</span></div></div>
+          <div class="pay"><span class="ico" data-art="audit"></span><div><b>Sponsors</b><span>Verified CSR, ESG reports</span></div></div>
+          <div class="trend">
+            <svg viewBox="0 0 360 110" data-lint="off">
+              <path d="M6 104 H354" stroke="var(--hair)" stroke-width="2"/>
+              <path class="drawline" d="M10 22 C90 30 150 62 230 78 S320 90 340 92" fill="none" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/>
+              <path class="drawline" d="M10 86 C90 78 150 54 230 40 S320 28 340 24" fill="none" stroke="var(--wire)" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <div class="t" style="left: 10px; top: -14px; color: var(--accent-2)">surplus</div>
+            <div class="t" style="left: 290px; top: -14px; color: var(--wire)">income</div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { slide } from "../lib/deck.js";
+      import { mount } from "../lib/art.js";
+      mount();
+      slide(async ({ slide }) => {
+        // dashed track from each risk's "before" to its "after" position
+        const g = document.getElementById("grid");
+        const W = g.clientWidth, H = g.clientHeight;
+        const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        Object.assign(s.style, { position: "absolute", inset: "0", width: "100%", height: "100%", overflow: "visible", zIndex: 2 });
+        s.dataset.lint = "off";
+        for (const d of g.querySelectorAll(".dot")) {
+          const v = (k) => parseFloat(d.style.getPropertyValue(k)) / 100;
+          s.insertAdjacentHTML("beforeend", `<path d="M${v("--x0") * W} ${v("--y0") * H} L${v("--x1") * W} ${v("--y1") * H}" stroke="var(--ink-3)" stroke-width="2" stroke-dasharray="4 6" fill="none"/>`);
+        }
+        g.prepend(s);
+      });
+    </script>
+  </body>
+</html>
